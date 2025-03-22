@@ -238,7 +238,7 @@ CREATE TABLE unrealised_gain_loss (
 
 
 CREATE TABLE asset_stock (
-  asset_id varchar(255) PRIMARY KEY,
+  asset_id varchar(20) PRIMARY KEY,
   name varchar(255),
   market_price money,
   pe_ratio decimal(5, 2),
@@ -247,9 +247,21 @@ CREATE TABLE asset_stock (
   CONSTRAINT UQ_asset_stock UNIQUE (name)
 );
 
+INSERT INTO asset_stock VALUES('AAPL', 'Apple Inc.', 214.10, 34.5, 2.4, 137400000000);
+INSERT INTO asset_stock VALUES('MSFT', 'Microsoft Corp', 386.84, 31.5, 3.23, 142905000000); 
+INSERT INTO asset_stock VALUES('NVDA', 'Nvidia Corp', 118.53, 36.4, 3.26, 19000000000); 
+INSERT INTO asset_stock VALUES('AMZN', 'Amazon.com Inc', 194.95, 25.7, 1.23, 58000000000); 
+INSERT INTO asset_stock VALUES('META', 'Meta Platforms, Inc. Class A', 586.00, 23.5, 2.5, 40000000000); 
+INSERT INTO asset_stock VALUES('BRK.B', 'Berkshire Hathaway Class B', 528.73, 8.5, 3.12, 65000000000); 
+INSERT INTO asset_stock VALUES('GOOGL', 'Alphabet Inc. Class A', 162.80, 29.7, 5.48, 92000000000); 
+INSERT INTO asset_stock VALUES('AVGO', 'Broadcom Inc.', 190.54, 21.3, 8.95, 13000000000); 
+INSERT INTO asset_stock VALUES('GOOG', 'Alphabet Inc. Class C', 165.05, 29.7, 5.48, 92000000000); 
+INSERT INTO asset_stock VALUES('JPM', 'Jpmorgan Chase & Co.', 239.01, 10.2, 3.78, 45000000000);
+
+
 
 CREATE TABLE asset_bond (
-  asset_id varchar(255) PRIMARY KEY,
+  asset_id varchar(20) PRIMARY KEY,
   name varchar(255),
   market_price money,
   interest_rate decimal(5, 3),
@@ -257,12 +269,23 @@ CREATE TABLE asset_bond (
   CONSTRAINT UQ_asset_bond UNIQUE (name)
 );
 
+INSERT INTO asset_bond VALUES('SG31A8000003', 'NX16100F 2-year', 99.530, 2.520, '2026-02-01');
+INSERT INTO asset_bond VALUES('SG31A7000004', 'NA16100H 20-year', 100.240, 2.730, '2046-03-01');
+INSERT INTO asset_bond VALUES('SGXF75438295', 'NX24100T 10-year', 105.770, 2.660, '2034-05-01');
+INSERT INTO asset_bond VALUES('SGXF12888537', 'N521100V 2-Year', 98.020, 2.510, '2026-11-01');
+INSERT INTO asset_bond VALUES('SGXF13029610', 'NZ19100S 15-Year', 95.810, 2.730, '2039-07-01');
+INSERT INTO asset_bond VALUES('SG3263998209', 'NY14100E 5-Year', 101.420, 2.520, '2029-07-01');
+INSERT INTO asset_bond VALUES('SGXF47639806', 'NC22300W 50-Year', 105.220, 2.800, '2072-08-01');
+INSERT INTO asset_bond VALUES('SGXF51035222', 'N523100W 5-Year', 101.250, 2.490, '2028-08-01');
+INSERT INTO asset_bond VALUES('SG7J60932174', 'NZ07100S 2-Year', 101.940, 2.470, '2027-03-01');
+INSERT INTO asset_bond VALUES('SGXF25686589', 'NX25100H 10-Year', 100.770, 2.660, '2035-03-01');
+
 
 /**
 * dividend_yield and expense_ratio are all percentages
 */
 CREATE TABLE asset_fund (
-  asset_id varchar(255) PRIMARY KEY,
+  asset_id varchar(20) PRIMARY KEY,
   name varchar(255),
   market_price money,
   expense_ratio decimal(3, 2),
@@ -270,15 +293,35 @@ CREATE TABLE asset_fund (
   CONSTRAINT UQ_asset_fund UNIQUE (name)
 );
 
+INSERT INTO asset_fund VALUES('VTSAX', 'Vanguard Total Stock Market Index Fund Admiral Shares', 115.00, 0.04, 1.50);
+INSERT INTO asset_fund VALUES('VFIAX', 'Vanguard 500 Index Fund Admiral Shares', 350.00, 0.04, 1.80);
+INSERT INTO asset_fund VALUES('FXAIX', 'Fidelity 500 Index Fund', 150.00, 0.015, 1.70);
+INSERT INTO asset_fund VALUES('VTIAX', 'Vanguard Total International Stock Index Fund Admiral Shares', 30.00, 0.11, 2.00);
+INSERT INTO asset_fund VALUES('VTBIX', 'Vanguard Total Bond Market II Index Fund', 11.00, 0.09, 2.50);
+INSERT INTO asset_fund VALUES('VTSMX', 'Vanguard Total Stock Market Index Fund Investor Shares', 115.00, 0.17, 1.50);
+INSERT INTO asset_fund VALUES('AGTHX', 'American Funds Growth Fund of America', 65.00, 0.68, 0.50);
+INSERT INTO asset_fund VALUES('SPY', 'SPDR S&P 500 ETF Trust', 400.00, 0.09, 1.60);
+INSERT INTO asset_fund VALUES('QQQ', 'Invesco QQQ Trust', 320.00, 0.20, 0.70);
+INSERT INTO asset_fund VALUES('DODGX', 'Dodge & Cox Stock Fund', 250.00, 0.52, 1.30);
 
 
 CREATE TABLE asset_others (
-  asset_id varchar(255) PRIMARY KEY,
+  asset_id varchar(20) PRIMARY KEY,
   name varchar(255),
   market_price money,
   CONSTRAINT UQ_asset_others UNIQUE (name)
 );
 
+INSERT INTO asset_others VALUES('GC=F', 'Gold Futures (Apr 2025)', 2150.00);
+INSERT INTO asset_others VALUES('SI=F', 'Silver Futures (Apr 2025)', 25.30);
+INSERT INTO asset_others VALUES('CL=F', 'Crude Oil WTI Futures (Apr 2025)', 80.50);
+INSERT INTO asset_others VALUES('NG=F', 'Natural Gas Futures (Apr 2025)', 2.30);
+INSERT INTO asset_others VALUES('BTC-USD', 'Bitcoin', 67000.00);
+INSERT INTO asset_others VALUES('ETH-USD', 'Ethereum', 3600.00);
+INSERT INTO asset_others VALUES('COFFEE=F', 'Coffee Futures (May 2025)', 190.00);
+INSERT INTO asset_others VALUES('CORN=F', 'Corn Futures (May 2025)', 450.00);
+INSERT INTO asset_others VALUES('PL=F', 'Platinum Futures (Apr 2025)', 900.00);
+INSERT INTO asset_others VALUES('LUMBER=F', 'Lumber Futures (Apr 2025)', 540.00);
 
 
 /**
@@ -292,7 +335,7 @@ CREATE TABLE stock_in_portfolio (
   allocation_ratio decimal(4, 3) NOT NULL CHECK (allocation_ratio > 0 AND allocation_ratio < 1),
   post_trade_co varchar(255),
   phone_number varchar(20),
-  asset_id varchar(255),
+  asset_id varchar(20),
   CONSTRAINT FK_stock_in_portfolio_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
 
@@ -305,7 +348,7 @@ CREATE TABLE bond_in_portfolio (
   allocation_ratio decimal(4, 3) NOT NULL CHECK (allocation_ratio > 0 AND allocation_ratio < 1),
   post_trade_co varchar(255),
   phone_number varchar(20),
-  asset_id varchar(255),
+  asset_id varchar(20),
   CONSTRAINT FK_bond_in_portfolio_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
 
@@ -318,7 +361,7 @@ CREATE TABLE fund_in_portfolio (
   allocation_ratio decimal(4, 3) NOT NULL CHECK (allocation_ratio > 0 AND allocation_ratio < 1),
   post_trade_co varchar(255),
   phone_number varchar(20),
-  asset_id varchar(255),
+  asset_id varchar(20),
   CONSTRAINT FK_fund_in_portfolio_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
   CONSTRAINT FK_fund_in_portfolio_TO_asset_fund FOREIGN KEY (asset_id) REFERENCES asset_fund(asset_id)
 );
