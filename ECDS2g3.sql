@@ -248,17 +248,15 @@ CREATE TABLE asset_stock (
 );
 
 INSERT INTO asset_stock VALUES('AAPL', 'Apple Inc.', 214.10, 34.5, 2.4, 137400000000);
-INSERT INTO asset_stock VALUES('MSFT', 'Microsoft Corp', 386.84); 
-INSERT INTO asset_stock VALUES('NVDA', 'Nvidia Corp', 118.53); 
-INSERT INTO asset_stock VALUES('AMZN', 'Amazon.com Inc', 194.95); 
-INSERT INTO asset_stock VALUES('META', 'Meta Platforms, Inc. Class A', 586.00); 
-INSERT INTO asset_stock VALUES('BRK.B', 'Berkshire Hathaway Class B', 528.73); 
-INSERT INTO asset_stock VALUES('GOOGL', 'Alphabet Inc. Class A', 162.80); 
-INSERT INTO asset_stock VALUES('AVGO', 'Broadcom Inc.', 190.54); 
-INSERT INTO asset_stock VALUES('GOOG', 'Alphabet Inc. Class C', 165.05); 
-INSERT INTO asset_stock VALUES('JPM', 'Jpmorgan Chase & Co.', 239.01); 
-
-
+INSERT INTO asset_stock VALUES('MSFT', 'Microsoft Corp', 386.84, 31.5, 3.23, 142905000000); 
+INSERT INTO asset_stock VALUES('NVDA', 'Nvidia Corp', 118.53, 36.4, 3.26, 19000000000); 
+INSERT INTO asset_stock VALUES('AMZN', 'Amazon.com Inc', 194.95, 25.7, 1.23, 58000000000); 
+INSERT INTO asset_stock VALUES('META', 'Meta Platforms, Inc. Class A', 586.00, 23.5, 2.5, 40000000000); 
+INSERT INTO asset_stock VALUES('BRK.B', 'Berkshire Hathaway Class B', 528.73, 8.5, 3.12, 65000000000); 
+INSERT INTO asset_stock VALUES('GOOGL', 'Alphabet Inc. Class A', 162.80, 29.7, 5.48, 92000000000); 
+INSERT INTO asset_stock VALUES('AVGO', 'Broadcom Inc.', 190.54, 21.3, 8.95, 13000000000); 
+INSERT INTO asset_stock VALUES('GOOG', 'Alphabet Inc. Class C', 165.05, 29.7, 5.48, 92000000000); 
+INSERT INTO asset_stock VALUES('JPM', 'Jpmorgan Chase & Co.', 239.01, 10.2, 3.78, 45000000000);
 
 
 
@@ -295,6 +293,16 @@ CREATE TABLE asset_fund (
   CONSTRAINT UQ_asset_fund UNIQUE (name)
 );
 
+INSERT INTO asset_fund VALUES('VTSAX', 'Vanguard Total Stock Market Index Fund Admiral Shares', 115.00, 0.04, 1.50);
+INSERT INTO asset_fund VALUES('VFIAX', 'Vanguard 500 Index Fund Admiral Shares', 350.00, 0.04, 1.80);
+INSERT INTO asset_fund VALUES('FXAIX', 'Fidelity 500 Index Fund', 150.00, 0.015, 1.70);
+INSERT INTO asset_fund VALUES('VTIAX', 'Vanguard Total International Stock Index Fund Admiral Shares', 30.00, 0.11, 2.00);
+INSERT INTO asset_fund VALUES('VTBIX', 'Vanguard Total Bond Market II Index Fund', 11.00, 0.09, 2.50);
+INSERT INTO asset_fund VALUES('VTSMX', 'Vanguard Total Stock Market Index Fund Investor Shares', 115.00, 0.17, 1.50);
+INSERT INTO asset_fund VALUES('AGTHX', 'American Funds Growth Fund of America', 65.00, 0.68, 0.50);
+INSERT INTO asset_fund VALUES('SPY', 'SPDR S&P 500 ETF Trust', 400.00, 0.09, 1.60);
+INSERT INTO asset_fund VALUES('QQQ', 'Invesco QQQ Trust', 320.00, 0.20, 0.70);
+INSERT INTO asset_fund VALUES('DODGX', 'Dodge & Cox Stock Fund', 250.00, 0.52, 1.30);
 
 
 CREATE TABLE asset_others (
@@ -304,6 +312,16 @@ CREATE TABLE asset_others (
   CONSTRAINT UQ_asset_others UNIQUE (name)
 );
 
+INSERT INTO asset_others VALUES('GC=F', 'Gold Futures (Apr 2025)', 2150.00);
+INSERT INTO asset_others VALUES('SI=F', 'Silver Futures (Apr 2025)', 25.30);
+INSERT INTO asset_others VALUES('CL=F', 'Crude Oil WTI Futures (Apr 2025)', 80.50);
+INSERT INTO asset_others VALUES('NG=F', 'Natural Gas Futures (Apr 2025)', 2.30);
+INSERT INTO asset_others VALUES('BTC-USD', 'Bitcoin', 67000.00);
+INSERT INTO asset_others VALUES('ETH-USD', 'Ethereum', 3600.00);
+INSERT INTO asset_others VALUES('COFFEE=F', 'Coffee Futures (May 2025)', 190.00);
+INSERT INTO asset_others VALUES('CORN=F', 'Corn Futures (May 2025)', 450.00);
+INSERT INTO asset_others VALUES('PL=F', 'Platinum Futures (Apr 2025)', 900.00);
+INSERT INTO asset_others VALUES('LUMBER=F', 'Lumber Futures (Apr 2025)', 540.00);
 
 
 /**
