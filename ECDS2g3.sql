@@ -33,7 +33,7 @@ INSERT INTO investor_signup VALUES('98765432', 'David Ong', '1980-07-07', 'M');
 INSERT INTO investor_signup VALUES('90123456', 'Eva Chua', '1995-12-01', 'F');
 INSERT INTO investor_signup VALUES('92226789', 'Fiona Tan', '1987-01-10', 'F');
 INSERT INTO investor_signup VALUES('96547890', 'George Ho', '1990-06-22', 'M');
-INSERT INTO investor_signup VALUES('98324567', 'Hannah Goh', '2000-04-18', 'F');
+INSERT INTO investor_signup VALUES('98324567', 'Hannah Goh', '1990-04-18', 'F');
 INSERT INTO investor_signup VALUES('94786234', 'Ian Cheong', '1989-09-05', 'M');
 INSERT INTO investor_signup VALUES('89950123', 'Jacky Lau', '1991-10-30', 'M');
 INSERT INTO investor_signup VALUES('82340987', 'Kara Chia', '1988-08-11', 'F');
@@ -45,6 +45,31 @@ INSERT INTO investor_signup VALUES('97543123', 'Paul Lim', '1994-07-25', 'M');
 INSERT INTO investor_signup VALUES('92037456', 'Quincy Yeo', '1983-12-13', 'O');
 INSERT INTO investor_signup VALUES('83652019', 'Rita Lee', '1998-08-08', 'O');
 INSERT INTO investor_signup VALUES('95732804', 'Simon Ho', '1975-03-02', 'O');
+
+/**
+* To answer Query 7 
+*/
+INSERT INTO investor_signup VALUES('96827418', 'Clyaton Hammond', '1997-11-04', 'M');
+INSERT INTO investor_signup VALUES('81548849', 'Blake Wood', '1996-01-24', 'M');
+INSERT INTO investor_signup VALUES('94798210', 'Beh De Kang', '1997-02-11', 'M');
+INSERT INTO investor_signup VALUES('94612498', 'Teng Yong Rui', '2000-09-30', 'M');
+INSERT INTO investor_signup VALUES('86999698', 'Beh Kai De', '1997-03-13', 'M');
+INSERT INTO investor_signup VALUES('92347678', 'Chen Kai Ming', '2003-12-27', 'M');
+INSERT INTO investor_signup VALUES('81067405', 'Yang Kai De', '2003-03-01', 'M');
+INSERT INTO investor_signup VALUES('86408389', 'Goh Jun Cheng', '2002-12-27', 'M');
+INSERT INTO investor_signup VALUES('86916680', 'Lam Zi Rui', '2002-03-23', 'M');
+INSERT INTO investor_signup VALUES('92948260', 'Hong Kai Ming', '2002-09-02', 'M');
+
+INSERT INTO investor_signup VALUES('87346813', 'Zhuo En Hui', '2000-04-23', 'F');
+INSERT INTO investor_signup VALUES('81241249', 'Zhuo Si Wen', '2005-01-01', 'F');
+INSERT INTO investor_signup VALUES('86093078', 'Shen Shu Qi', '2002-11-13', 'F');
+INSERT INTO investor_signup VALUES('88597986', 'Qin Xin En', '1996-06-15', 'F');
+INSERT INTO investor_signup VALUES('83248451', 'How Rui En', '1999-03-11', 'F');
+INSERT INTO investor_signup VALUES('97858928', 'Zeng Kai Hui', '2002-02-14', 'F');
+INSERT INTO investor_signup VALUES('95766485', 'Chia Jia Wen', '2004-05-24', 'F');
+INSERT INTO investor_signup VALUES('95067720', 'Liew Zhi Xin', '1998-02-14', 'F');
+INSERT INTO investor_signup VALUES('95177723', 'Du Kai Xin', '2002-12-12', 'F');
+INSERT INTO investor_signup VALUES('93641335', 'Ho Jia Xin', '1997-07-16', 'F');
 
 
 
@@ -83,23 +108,50 @@ CREATE TABLE investor_valid (
 /**
 * To show the difference between investor_add and investor_signup
 * Omitted John Wick, Quincy Yeo, Rita Lee, Simon Ho
+*
 */
-INSERT INTO investor_valid VALUES('alicetan85@yahoo.com', 'Goldman Sachs', 750000, '81232345');
-INSERT INTO investor_valid VALUES('boblim1992@hotmail.com', 'Morgan Stanley', 680000, '93456789');
-INSERT INTO investor_valid VALUES('cindylee1978@outlook.com', 'Barclays', 710000, '95551234');
-INSERT INTO investor_valid VALUES('davidong1980@live.com', 'HSBC', 800000, '98765432');
-INSERT INTO investor_valid VALUES('evachua1995@gmail.com', 'UBS', 720000, '90123456');
-INSERT INTO investor_valid VALUES('fionatan87@aol.com', 'Citibank', 690000, '92226789');
-INSERT INTO investor_valid VALUES('georgeho1990@outlook.com', 'DBS Bank', 740000, '96547890');
-INSERT INTO investor_valid VALUES('hannahgoh2000@protonmail.com', 'OCBC Bank', 710000, '98324567');
-INSERT INTO investor_valid VALUES('iancheong89@gmail.com', 'RBC', 650000, '94786234');
-INSERT INTO investor_valid VALUES('jackylau1991@icloud.com', 'Standard Chartered', 780000, '89950123');
-INSERT INTO investor_valid VALUES('karachia1988@yahoo.com', 'Maybank', 670000, '82340987');
-INSERT INTO investor_valid VALUES('lennytan1993@live.com', 'Citi', 710000, '97861234');
-INSERT INTO investor_valid VALUES('megantay1997@aol.com', 'JPMorgan Chase', 740000, '90657890');
-INSERT INTO investor_valid VALUES('ninakoh1982@gmail.com', 'DBS', 760000, '93086574');
-INSERT INTO investor_valid VALUES('oscartan1986@protonmail.com', 'OCBC', 700000, '91430257');
-INSERT INTO investor_valid VALUES('paullim1994@hotmail.com', 'HSBC', 680000, '97543123');
+
+INSERT INTO investor_valid VALUES('alicetan85@yahoo.com', 'Morgan Stanley', 75000, '81232345');
+INSERT INTO investor_valid VALUES('boblim1992@hotmail.com', 'Morgan Stanley', 68000, '93456789');
+INSERT INTO investor_valid VALUES('cindylee1978@outlook.com', 'Citibank', 71000, '95551234');
+INSERT INTO investor_valid VALUES('davidong1980@live.com', 'Citibank', 80000, '98765432');
+INSERT INTO investor_valid VALUES('evachua1995@gmail.com', 'UBS', 72000, '90123456');
+INSERT INTO investor_valid VALUES('fionatan87@aol.com', 'Citibank', 69000, '92226789');
+INSERT INTO investor_valid VALUES('georgeho1990@outlook.com', 'DBS Bank', 74000, '96547890');
+INSERT INTO investor_valid VALUES('hannahgoh2000@protonmail.com', 'OCBC Bank', 71000, '98324567');
+INSERT INTO investor_valid VALUES('iancheong89@gmail.com', 'UBS', 65000, '94786234');
+INSERT INTO investor_valid VALUES('jackylau1991@icloud.com', 'Standard Chartered', 78000, '89950123');
+INSERT INTO investor_valid VALUES('karachia1988@yahoo.com', 'DBS Bank', 67000, '82340987');
+INSERT INTO investor_valid VALUES('lennytan1993@live.com', 'Citibank', 71000, '97861234');
+INSERT INTO investor_valid VALUES('megantay1997@aol.com', 'JPMorgan Chase', 74000, '90657890');
+INSERT INTO investor_valid VALUES('ninakoh1982@gmail.com', 'DBS Bank', 76000, '93086574');
+INSERT INTO investor_valid VALUES('oscartan1986@protonmail.com', 'OCBC Bank', 70000, '91430257');
+INSERT INTO investor_valid VALUES('paullim1994@hotmail.com', 'UBS', 68000, '97543123');
+/**
+* additional records inserted for Q7
+*/
+INSERT INTO investor_valid VALUES('clayton92@gmail.com', 'OCBC Bank', 670000, '96827418');
+INSERT INTO investor_valid VALUES('blakewood1@outlook.com', 'UBS', 71000, '81548849');
+INSERT INTO investor_valid VALUES('behhh@qq.com', 'Morgan Stanley', 80000, '94798210');
+INSERT INTO investor_valid VALUES('tyr123@protonmail.com', 'Morgan Stanley', 69000, '94612498');
+INSERT INTO investor_valid VALUES('behkaide@e.ntu.edu.sg', 'Citibank', 59000, '86999698');
+INSERT INTO investor_valid VALUES('chen002@e.ntu.edu.sg', 'JPMorgan Chase', 61000, '92347678');
+INSERT INTO investor_valid VALUES('ykde@gmail.com', 'JPMorgan Chase', 88888, '81067405');
+INSERT INTO investor_valid VALUES('gohjuncheng@gmail.com', 'UBS', 82000, '86408389');
+INSERT INTO investor_valid VALUES('lam0122@gmail.com', 'OCBC Bank', 100000, '86916680');
+INSERT INTO investor_valid VALUES('hongkaiming@e.ntu.edu.sg', 'DBS Bank', 120000, '92948260');
+
+INSERT INTO investor_valid VALUES('enhuihui@gmail.com', 'OCBC Bank', 68000, '87346813');
+INSERT INTO investor_valid VALUES('siwen12@gmail.com', 'UBS', 71000, '81241249');
+INSERT INTO investor_valid VALUES('ssq72@outlook.com', 'Morgan Stanley', 810000, '86093078');
+INSERT INTO investor_valid VALUES('xinen123@gmail.com', 'Morgan Stanley', 830000, '88597986');
+INSERT INTO investor_valid VALUES('ruien59@naver.com', 'Citibank', 650000, '83248451');
+INSERT INTO investor_valid VALUES('kaihuii@gmail.com', 'JPMorgan Chase', 139000, '97858928');
+INSERT INTO investor_valid VALUES('jiaw911@e.ntu.edu.sg', 'JPMorgan Chase', 100000, '95766485');
+INSERT INTO investor_valid VALUES('lzx1@gmail.com', 'UBS', 73100, '95067720');
+INSERT INTO investor_valid VALUES('kaiaxinn1111@gmail.com', 'DBS Bank', 56000, '95177723');
+INSERT INTO investor_valid VALUES('jiajia11@outlook.com', 'OCBC Bank', 58000, '93641335');
+
 
 
 
