@@ -236,7 +236,7 @@ CREATE TABLE risk_tolerance_risklvl (
 CREATE TABLE portfolio (
   phone_number varchar(20),
   pid int,
-  annualised_return money NOT NULL,
+  annualised_return decimal(5,2) NOT NULL,
   inception_date datetime, 
   market_value money,
   management_fee smallmoney,
@@ -247,14 +247,22 @@ CREATE TABLE portfolio (
 
 
 /**
-* TO-DO: create records
+* For demonstration purpose, each person has three portoflio.
+*
+* This is because in the ER diagram, they did not consider the point that each
+* financial goal is tied to a portfolio.
 */
+INSERT INTO portfolio VALUES('81067405', 100, 23.01, '2023-01-01', 110210, 880, 1); 
+
 
 
 /**
 * Create table for WEAK ENTITY invested_value
 * 
 * attribute timestamp is changed to value_on
+*
+* note that users can update their invested value!
+* therefore value_on represents the LATEST date
 */
 CREATE TABLE invested_value (
   value_on datetime,
@@ -265,10 +273,9 @@ CREATE TABLE invested_value (
   CONSTRAINT FK_invested_value_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
 
+INSERT INTO invested_value VALUES('2024-01-01', 100, '81067405', 100000); 
 
-/**
-* TO-DO: create records
-*/
+
 
 
 CREATE TABLE unrealised_gain_loss (
