@@ -262,7 +262,8 @@ INSERT INTO portfolio VALUES('81067405', 100, 23.01, '2023-01-01', 110210, 880, 
 * attribute timestamp is changed to value_on
 *
 * note that users can update their invested value!
-* therefore value_on represents the LATEST date
+* therefore value_on represents the LATEST date,
+* keep old entries!
 */
 CREATE TABLE invested_value (
   value_on datetime,
@@ -273,6 +274,7 @@ CREATE TABLE invested_value (
   CONSTRAINT FK_invested_value_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
 
+INSERT INTO invested_value VALUES('2023-0-01', 100, '81067405', 90000);
 INSERT INTO invested_value VALUES('2024-01-01', 100, '81067405', 100000); 
 
 
