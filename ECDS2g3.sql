@@ -368,6 +368,10 @@ CREATE TABLE portfolio (
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
 VALUES ('81232345', 1, -10.12, '2023-01-01 09:12:33', 1050000, 1);
 
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('81232345', 2, 10.12, '2023-03-01 09:12:33', 1050000, 2);
+
+
 
 -- Bob Lim
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
@@ -740,6 +744,16 @@ INSERT INTO asset_others VALUES('LUMBER=F', 'Lumber Futures (Apr 2025)', 540.00)
 /**
 * allocation_ratio has precision 0.XXX to 1.000 exclusive
 *
+* note that the ER diagram specified that 
+* the individual id is a primary key
+*
+* for simplicity sake, let's check that one portfolio
+* has exactly one stock, one bond, one fund.
+*
+* for initialisation purpose, let
+* the start_date of each asset be 
+* the inception_date of the portfolio
+* 
 */
 CREATE TABLE stock_in_portfolio (
   id int PRIMARY KEY,
@@ -752,7 +766,15 @@ CREATE TABLE stock_in_portfolio (
   CONSTRAINT FK_stock_in_portfolio_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
 
-/* INSERT INTO stock_in_portfolio VALUES(1, 1, '2023-01-01', 0.4, 'Vanguard', '81067405', 'NVDA'); */
+INSERT INTO stock_in_porfolio (id, pid, start_date, allocation_ratio, post_trade_co, phone_number, asset_id)
+SELECT 
+  p.inception_date AS start_date
+FROM 
+  portfolio AS p
+WHERE
+  id = 1 AND pid = 1 AND phone_nubmer = p.phone_number AND incpetio
+
+
 
 
 
