@@ -128,7 +128,7 @@ CREATE TABLE financial_goal (
   CONSTRAINT UQ_financial_goal UNIQUE (priority)  
 );
 
-/**
+/** 
 * Currently only specify for Alice Tan
 * because we may change the whole thing depends on discussion
 */
@@ -138,7 +138,54 @@ INSERT INTO financial_goal VALUES('81232345', 'to buy a car', '500000', '2024-10
 INSERT INTO financial_goal VALUES('81232345', 'to buy a house', '10000000', '2024-10-10', '2034-10-10', 5);
 INSERT INTO financial_goal VALUES('81232345', 'to fund retirement fund', '420000', '2024-10-10', '2054-10-10', 4);
 
+INSERT INTO financial_goal VALUES ('93456789', 'to fund holiday vacations', '5000', '2024-08-10', '2028-08-10', 1);
+INSERT INTO financial_goal VALUES('93456789', 'to fund retirement fund', '420000', '2024-10-10', '2060-08-10', 2);
+INSERT INTO financial_goal VALUES('93456789', 'to buy a car', '500000', '2024-10-10', '2034-10-10', 3);
+INSERT INTO financial_goal VALUES('93456789', 'to buy a house', '10000000', '2027-10-10', '2037-12-10', 4);
 
+INSERT INTO financial_goal VALUES('95551234', 'to fund retirement fund', '500000', '2024-01-01', '2040-01-01', 1);
+INSERT INTO financial_goal VALUES('95551234', 'to fund children''s education', '100000', '2024-03-03', '2027-12-01',2);
+INSERT INTO financial_goal VALUES('95551234', 'to fund holiday vacations', '10000', '2024-04-04', '2030-01-01',3);
+
+INSERT INTO financial_goal VALUES('98765432', 'to buy a house', '1000000', '2024-01-01', '2030-01-01', 1);
+INSERT INTO financial_goal VALUES('98765432', 'to buy a car', '50000', '2024-06-06', '2026-06-06', 2);
+INSERT INTO financial_goal VALUES('98765432', 'to fund holiday vacations', '5000', '2024-12-12', '2026-12-12', 3);
+
+INSERT INTO financial_goal VALUES('90123456', 'to fund retirement fund', '420000', '2024-01-01', '2030-01-01', 1);
+
+INSERT INTO financial_goal VALUES('92226789', 'to buy a car', '50000', '2024-01-01', '2028-01-01', 1);
+
+INSERT INTO financial_goal VALUES('96547890', 'to fund holiday vactions', '5000', '2024-01-01', '2025-01-01', 1);
+INSERT INTO financial_goal VALUES('96547890', 'to buy a car', '50000', '2024-06-06', '2028-06-06', 2);
+
+INSERT INTO financial_goal VALUES('98324567', 'to fund retirement fund', '500000', '2024-01-01', '2030-01-01', 1);
+INSERT INTO financial_goal VALUES('98324567', 'to fund holiday vacations', '10000', '2024-01-01', '2026-01-01', 2);
+INSERT INTO financial_goal VALUES('98324567', 'to buy a car', '50000', '2025-01-01', '2030-01-01', 3);
+
+INSERT INTO financial_goal VALUES('94786234', 'to buy a house', '1000000', '2024-01-01', '2035-01-01', 1);
+INSERT INTO financial_goal VALUES('94786234', 'to fund retirement fund', '420000', '2024-01-01', '2045-01-01', 2);
+
+INSERT INTO financial_goal VALUES('89950123', 'to buy a house', '1000000', '2024-01-01', '2035-01-01', 1);
+INSERT INTO financial_goal VALUES('89950123', 'to buy a car', '50000', '2025-01-01', '2027-01-01', 2);
+
+INSERT INTO financial_goal VALUES('82340987', 'to fund children''s education', '100000', '2024-01-01','2030-01-01', 1);
+INSERT INTO financial_goal VALUES('82340987', 'to fund holiday vacations', '2024-06-06', '2026-06-06', 2);
+INSERT INTO financial_goal VALUES('82340987', 'to fund retirement fund', '420000', '2024-01-01', '2050-01-01', 3);
+
+INSERT INTO financial_goal VALUES('97861234', 'to fund retirement fund', '420000', '2024-01-01', '2040-01-01', 1);
+
+INSERT INTO financial_goal VALUES('90657890', 'to fund children''s education', '100000', '2024-01-01', '2030-01-01', 1);
+INSERT INTO financial_goal VALUES('90657890', 'to fund holiday vacations', '5000', '2024-01-01', '2025-12-12', 2);
+INSERT INTO financial_goal VALUES('90657890', 'to fund retirement fund', '100000', '2024-01-01', '2045-01-01', 3);
+
+INSERT INTO financial_goal VALUES('93086574', 'to buy a house', '1000000', '2024-01-01', '2030-01-01', 1);
+INSERT INTO financial_goal VALUES('93086574', 'to fund holiday vacations', '5000', '2024-01-01', '2027-01-01', 2);
+INSERT INTO financial_goal VALUES('93086574', 'to buy a car', '50000', '2024-01-01', '2032-01-01', 3);
+
+INSERT INTO financial_goal VALUES('91430257', 'to fund retirement fund', '420000', '2024-01-01', '2030-01-01', 1);
+
+INSERT INTO financial_goal VALUES('97543123', 'to buy a house', '1000000', '2024-01-01', '2035-01-01', 1);
+INSERT INTO financial_goal VALUES('97543123', 'to fund retirement fund', '420000', '2024-01-01', '2045-01-01', 2);
 /**
 * Create normalised table from WEAK ENTITY risk_tolerance, 
 * stores phone_number as key 
@@ -155,8 +202,25 @@ CREATE TABLE risk_tolerance_phone (
 );
 
 /**
-* TO-DO: create records
+* TO-DO: create records 
 */
+
+INSERT INTO risk_tolerance_phone VALUES('81232345', '70', '30', '40', '20', '10');
+INSERT INTO risk_tolerance_phone VALUES('93456789', '10', '10', '10', '10', '10');
+INSERT INTO risk_tolerance_phone VALUES('95551234', '20', '10', '20', '10', '10');
+INSERT INTO risk_tolerance_phone VALUES('98765432', '90', '90', '90', '90', '90');
+INSERT INTO risk_tolerance_phone VALUES('90123456', '50', '50', '50', '50', '50');
+INSERT INTO risk_tolerance_phone VALUES('92226789', '10', '20', '10', '20', '20');
+INSERT INTO risk_tolerance_phone VALUES('96547890', '30', '30', '50', '40', '30');
+INSERT INTO risk_tolerance_phone VALUES('98324567', '90', '100', '90', '90', '90');
+INSERT INTO risk_tolerance_phone VALUES('94786234', '100', '100', '100', '100', '100');
+INSERT INTO risk_tolerance_phone VALUES('89950123', '70', '70', '60', '70', '70');
+INSERT INTO risk_tolerance_phone VALUES('82340987', '20', '20', '20', '20', '20');
+INSERT INTO risk_tolerance_phone VALUES('97861234', '50', '50', '50', '50', '50');
+INSERT INTO risk_tolerance_phone VALUES('90657890', '40', '30', '40', '40', '50');
+INSERT INTO risk_tolerance_phone VALUES('93086574', '90', '90', '80', '60', '80');
+INSERT INTO risk_tolerance_phone VALUES('91430257', '60', '40', '50', '40', '50');
+INSERT INTO risk_tolerance_phone VALUES('97543123', '10', '20', '10', '20', '30');
 
 /**
 * Create normalised table from WEAK ENTITY risk tolerance,
@@ -173,9 +237,18 @@ CREATE TABLE risk_tolerance_risklvl (
 );
 
 /**
-* TO-DO: create records
-*/
+* TO-DO: create records (used bulk insert query)
+*/ 
 
+INSERT INTO risk_tolerance_risklvl (risk_level, q1_answer, q2_answer, q3_answer, q4_answer, q5_answer)
+SELECT 
+    CASE 
+        WHEN (CAST(q1_answer AS INT) + CAST(q2_answer AS INT) + CAST(q3_answer AS INT) + CAST(q4_answer AS INT) + CAST(q5_answer AS INT)) <= 150 THEN 'conservative'
+        WHEN (CAST(q1_answer AS INT) + CAST(q2_answer AS INT) + CAST(q3_answer AS INT) + CAST(q4_answer AS INT) + CAST(q5_answer AS INT)) <= 300 THEN 'moderate'
+        ELSE 'aggressive'
+    END AS risk_level,
+    q1_answer, q2_answer, q3_answer, q4_answer, q5_answer
+FROM risk_tolerance_phone;
 
 
 /**
