@@ -184,11 +184,11 @@ CREATE TABLE financial_goal (
 * Currently only specify for Alice Tan
 * because we may change the whole thing depends on discussion
 */
-INSERT INTO financial_goal VALUES('81232345', 'to fund children''s education', '100000', '2024-01-01', '2034-01-01', 1);
-INSERT INTO financial_goal VALUES('81232345', 'to fund holiday vacations', '5000', '2024-10-10', '2034-10-10', 2);
-INSERT INTO financial_goal VALUES('81232345', 'to buy a car', '500000', '2024-10-10', '2034-10-10', 3);
-INSERT INTO financial_goal VALUES('81232345', 'to buy a house', '10000000', '2024-10-10', '2034-10-10', 5);
-INSERT INTO financial_goal VALUES('81232345', 'to fund retirement fund', '420000', '2024-10-10', '2054-10-10', 4);
+INSERT INTO financial_goal VALUES('81232345', 'to fund children''s education', 100000, '2024-01-01', '2034-01-01', 1);
+INSERT INTO financial_goal VALUES('81232345', 'to fund holiday vacations', 5000, '2024-10-10', '2034-10-10', 2);
+INSERT INTO financial_goal VALUES('81232345', 'to buy a car', 500000, '2024-10-10', '2034-10-10', 3);
+INSERT INTO financial_goal VALUES('81232345', 'to buy a house', 10000000, '2024-10-10', '2034-10-10', 5);
+INSERT INTO financial_goal VALUES('81232345', 'to fund retirement fund', 420000, '2024-10-10', '2054-10-10', 4);
 
 
 /**
@@ -240,20 +240,108 @@ CREATE TABLE portfolio (
   inception_date datetime, 
   market_value money,
   management_fee smallmoney,
-  operational_status binary(1), 
+  operational_status bit, 
   CONSTRAINT PK_portfolio PRIMARY KEY (phone_number, pid),
   CONSTRAINT FK_portfolio_TO_investor_valid FOREIGN KEY (phone_number) REFERENCES investor_valid(phone_number)
 );
 
 
-/**
-* For demonstration purpose, each person has three portoflio.
+/** For demonstration purpose, each person has three portoflio.
 *
 * This is because in the ER diagram, they did not consider the point that each
 * financial goal is tied to a portfolio.
+*
+*
+* We will use ALTER TABLE to update the management_fee and annualised return
+* later automatically.
 */
-/* INSERT INTO portfolio VALUES('81067405', 100, 23.01, '2023-01-01', 110210, 880, 1);  */
 
+-- Alice Tan
+INSERT INTO portfolio (phone_number, pid, market_value, operational_status)
+VALUES ('81232345', 1, 10.12, '2023-01-01 09:12:33', 1050000, 1);
+
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('81232345', 2, -20.03, '2022-06-15 15:47:22', 920000, 1);
+
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('81232345', 3, -10.03, '2021-06-15 15:47:22', 20000, 0);
+
+
+-- Bob Lim
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('93456789', 1, 30.15, '2024-01-01 11:05:45', 1300000, 1);
+
+
+-- Cindy Lee
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('95551234', 1, -23.05, '2023-03-12 16:33:09', 870000, 1);
+
+
+-- David Ong
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('98765432', 1, 10.09, '2023-09-01 08:22:17', 1150000, 1);
+
+
+-- Eva Chua
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('90123456', 1, 40.11, '2024-02-20 14:11:58', 1400000, 1);
+
+
+-- Fiona Tan
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('92226789', 1, 20.05, '2023-08-01 17:09:04', 880000, 1);
+
+
+-- George Ho
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('96547890', 1, 10.13, '2023-01-01 10:18:29', 990000, 1);
+
+
+-- Hannah Goh
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('98324567', 1, 15.10, '2023-03-03 13:41:36', 1020000, 1);
+
+
+-- Ian Cheong
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('94786234', 1, -20.02, '2022-11-11 12:57:48', 760000, 1);
+
+
+-- Jacky Lau
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('89950123', 1, 30.14, '2024-01-15 09:45:10', 1260000, 1);
+
+
+-- Kara Chia
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('82340987', 1, 19.03, '2023-04-04 18:03:28', 790000, 1);
+
+
+-- Lenny Tan
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('97861234', 1, 3.07, '2023-06-01 07:30:55', 880000, 1);
+
+
+-- Megan Tay
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('90657890', 1, 2.09, '2024-05-10 16:27:19', 1120000, 1);
+
+
+-- Nina Koh
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('93086574', 1, 4.08, '2022-10-10 15:14:46', 990000, 1);
+
+
+-- Oscar Tan
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('91430257', 1, 10.06, '2023-01-01 10:10:10', 870000, 1);
+
+
+-- Paul Lim
+INSERT INTO portfolio (phone_number, pid, annualised_return, market_value, operational_status)
+VALUES ('97543123', 1, -20.04, '2023-07-07 19:52:11', 910000, 1);
+
+ 
 
 
 /**
@@ -432,6 +520,8 @@ CREATE TABLE fund_in_portfolio (
 
 /**
 * Transactions 
+*
+* To answer Q5 requires top up
 */
 
 CREATE TABLE transaction_stock (
