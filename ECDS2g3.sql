@@ -252,7 +252,7 @@ CREATE TABLE portfolio (
 * This is because in the ER diagram, they did not consider the point that each
 * financial goal is tied to a portfolio.
 */
-INSERT INTO portfolio VALUES('81067405', 100, 23.01, '2023-01-01', 110210, 880, 1); 
+/* INSERT INTO portfolio VALUES('81067405', 100, 23.01, '2023-01-01', 110210, 880, 1);  */
 
 
 
@@ -274,8 +274,8 @@ CREATE TABLE invested_value (
   CONSTRAINT FK_invested_value_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
 
-INSERT INTO invested_value VALUES('2023-0-01', 100, '81067405', 90000);
-INSERT INTO invested_value VALUES('2024-01-01', 100, '81067405', 100000); 
+/* INSERT INTO invested_value VALUES('2023-0-01', 100, '81067405', 90000); */
+/* INSERT INTO invested_value VALUES('2024-01-01', 100, '81067405', 100000);  */
 
 
 
@@ -399,6 +399,8 @@ CREATE TABLE stock_in_portfolio (
   asset_id varchar(20),
   CONSTRAINT FK_stock_in_portfolio_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
+
+/* INSERT INTO stock_in_portfolio VALUES(1, 1, '2023-01-01', 0.4, 'Vanguard', '81067405', 'NVDA'); */
 
 
 
