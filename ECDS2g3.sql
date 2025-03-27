@@ -177,57 +177,166 @@ CREATE TABLE financial_goal (
   priority int NOT NULL,
   CONSTRAINT PK_financial_goal PRIMARY KEY (phone_number, goal),
   CONSTRAINT FK_financial_goal_TO_investor_valid FOREIGN KEY (phone_number) REFERENCES investor_valid(phone_number),
-  CONSTRAINT UQ_financial_goal UNIQUE (priority)  
+  CONSTRAINT UQ_financial_goal UNIQUE (phone_number, priority)  
 );
 
-/**
-* Currently only specify for Alice Tan
-* because we may change the whole thing depends on discussion
-*/
-INSERT INTO financial_goal VALUES('81232345', 'to fund children''s education', '100000', '2024-01-01', '2034-01-01', 1);
-INSERT INTO financial_goal VALUES('81232345', 'to fund holiday vacations', '5000', '2024-10-10', '2034-10-10', 2);
-INSERT INTO financial_goal VALUES('81232345', 'to buy a car', '500000', '2024-10-10', '2034-10-10', 3);
-INSERT INTO financial_goal VALUES('81232345', 'to buy a house', '10000000', '2024-10-10', '2034-10-10', 5);
-INSERT INTO financial_goal VALUES('81232345', 'to fund retirement fund', '420000', '2024-10-10', '2054-10-10', 4);
+INSERT INTO financial_goal VALUES('81232345', 'to fund children''s education', 100000, '2024-01-01', '2034-01-01', 1);
+INSERT INTO financial_goal VALUES('81232345', 'to fund holiday vacations', 5000, '2024-10-10', '2034-10-10', 2);
+INSERT INTO financial_goal VALUES('81232345', 'to buy a car', 500000, '2024-10-10', '2034-10-10', 3);
+INSERT INTO financial_goal VALUES('81232345', 'to buy a house', 10000000, '2024-10-10', '2034-10-10', 5);
+INSERT INTO financial_goal VALUES('81232345', 'to fund retirement fund', 420000, '2024-10-10', '2054-10-10', 4);
+
+INSERT INTO financial_goal VALUES ('93456789', 'to fund holiday vacations', 5000, '2024-08-10', '2028-08-10', 1);
+INSERT INTO financial_goal VALUES('93456789', 'to fund retirement fund', 420000, '2024-10-10', '2060-08-10', 2);
+INSERT INTO financial_goal VALUES('93456789', 'to buy a car', 500000, '2024-10-10', '2034-10-10', 3);
+INSERT INTO financial_goal VALUES('93456789', 'to buy a house', 10000000, '2027-10-10', '2037-12-10', 4);
+
+INSERT INTO financial_goal VALUES('95551234', 'to fund retirement fund', 500000, '2024-01-01', '2040-01-01', 1);
+INSERT INTO financial_goal VALUES('95551234', 'to fund children''s education', 100000, '2024-03-03', '2027-12-01',2);
+INSERT INTO financial_goal VALUES('95551234', 'to fund holiday vacations', 10000, '2024-04-04', '2030-01-01',3);
+
+INSERT INTO financial_goal VALUES('98765432', 'to buy a house', 1000000, '2024-01-01', '2030-01-01', 1);
+INSERT INTO financial_goal VALUES('98765432', 'to buy a car', 50000, '2024-06-06', '2026-06-06', 2);
+INSERT INTO financial_goal VALUES('98765432', 'to fund holiday vacations', 5000, '2024-12-12', '2026-12-12', 3);
+
+INSERT INTO financial_goal VALUES('90123456', 'to fund retirement fund', 420000, '2024-01-01', '2030-01-01', 1);
+
+INSERT INTO financial_goal VALUES('92226789', 'to buy a car', 50000, '2024-01-01', '2028-01-01', 1);
+
+INSERT INTO financial_goal VALUES('96547890', 'to fund holiday vacations', 5000, '2024-01-01', '2025-01-01', 1);
+INSERT INTO financial_goal VALUES('96547890', 'to buy a car', 50000, '2024-06-06', '2028-06-06', 2);
+
+INSERT INTO financial_goal VALUES('98324567', 'to fund retirement fund', 500000, '2024-01-01', '2030-01-01', 1);
+INSERT INTO financial_goal VALUES('98324567', 'to fund holiday vacations', 10000, '2024-01-01', '2026-01-01', 2);
+INSERT INTO financial_goal VALUES('98324567', 'to buy a car', 50000, '2025-01-01', '2030-01-01', 3);
+
+INSERT INTO financial_goal VALUES('94786234', 'to buy a house', 1000000, '2024-01-01', '2035-01-01', 1);
+INSERT INTO financial_goal VALUES('94786234', 'to fund retirement fund', 420000, '2024-01-01', '2045-01-01', 2);
+
+INSERT INTO financial_goal VALUES('89950123', 'to buy a house', 1000000, '2024-01-01', '2035-01-01', 1);
+INSERT INTO financial_goal VALUES('89950123', 'to buy a car', 50000, '2025-01-01', '2027-01-01', 2);
+
+INSERT INTO financial_goal VALUES('82340987', 'to fund children''s education', 100000, '2024-01-01', '2030-01-01', 1);
+INSERT INTO financial_goal VALUES('82340987', 'to fund holiday vacations', 5000, '2024-06-06', '2026-06-06', 2);
+INSERT INTO financial_goal VALUES('82340987', 'to fund retirement fund', 420000, '2024-01-01', '2050-01-01', 3);
+
+INSERT INTO financial_goal VALUES('97861234', 'to fund retirement fund', 420000, '2024-01-01', '2040-01-01', 1);
+
+INSERT INTO financial_goal VALUES('90657890', 'to fund children''s education', 100000, '2024-01-01', '2030-01-01', 1);
+INSERT INTO financial_goal VALUES('90657890', 'to fund holiday vacations', 5000, '2024-01-01', '2025-12-12', 2);
+INSERT INTO financial_goal VALUES('90657890', 'to fund retirement fund', 100000, '2024-01-01', '2045-01-01', 3);
+
+INSERT INTO financial_goal VALUES('93086574', 'to buy a house', 1000000, '2024-01-01', '2030-01-01', 1);
+INSERT INTO financial_goal VALUES('93086574', 'to fund holiday vacations', 5000, '2024-01-01', '2027-01-01', 2);
+INSERT INTO financial_goal VALUES('93086574', 'to buy a car', 50000, '2024-01-01', '2032-01-01', 3);
+
+INSERT INTO financial_goal VALUES('91430257', 'to fund retirement fund', 420000, '2024-01-01', '2030-01-01', 1);
+
+INSERT INTO financial_goal VALUES('97543123', 'to buy a house', 1000000, '2024-01-01', '2035-01-01', 1);
+INSERT INTO financial_goal VALUES('97543123', 'to fund retirement fund', 420000, '2024-01-01', '2045-01-01', 2);
 
 
 /**
 * Create normalised table from WEAK ENTITY risk_tolerance, 
 * stores phone_number as key 
 *
+*
+* instead of storing answer, we will store it as a score 
 */
 CREATE TABLE risk_tolerance_phone (
   phone_number varchar(20) PRIMARY KEY,
-  q1_answer varchar(255) NOT NULL,
-  q2_answer varchar(255) NOT NULL,
-  q3_answer varchar(255) NOT NULL,
-  q4_answer varchar(255) NOT NULL,
-  q5_answer varchar(255) NOT NULL,
+  q1_answer int NOT NULL CHECK (q1_answer IN (0, 1)),
+  q2_answer int NOT NULL CHECK (q2_answer IN (0, 1)),
+  q3_answer int NOT NULL CHECK (q3_answer IN (0, 1)),
+  q4_answer int NOT NULL CHECK (q4_answer IN (0, 1)),
+  q5_answer int NOT NULL CHECK (q5_answer IN (0, 1)),
+  score AS (q1_answer + q2_answer + q3_answer + q4_answer + q5_answer),
   CONSTRAINT FK_risk_tolerance_phone_TO_investor_valid FOREIGN KEY (phone_number) REFERENCES investor_valid(phone_number)
 );
 
-/**
-* TO-DO: create records
-*/
+INSERT INTO risk_tolerance_phone VALUES('81232345', 1, 0, 1, 1, 1);
+INSERT INTO risk_tolerance_phone VALUES('93456789', 1, 1, 1, 1, 1);
+INSERT INTO risk_tolerance_phone VALUES('95551234', 0, 0, 0, 0, 0);
+INSERT INTO risk_tolerance_phone VALUES('98765432', 0, 1, 1, 1, 1);
+INSERT INTO risk_tolerance_phone VALUES('90123456', 1, 1, 1, 0, 1);
+INSERT INTO risk_tolerance_phone VALUES('92226789', 1, 1, 0, 1, 1);
+INSERT INTO risk_tolerance_phone VALUES('96547890', 1, 0, 0, 0, 0);
+INSERT INTO risk_tolerance_phone VALUES('98324567', 0, 1, 0, 1, 1);
+INSERT INTO risk_tolerance_phone VALUES('94786234', 1, 0, 1, 1, 0);
+INSERT INTO risk_tolerance_phone VALUES('89950123', 0, 0, 1, 1, 1);
+INSERT INTO risk_tolerance_phone VALUES('82340987', 1, 1, 0, 1, 0);
+INSERT INTO risk_tolerance_phone VALUES('97861234', 0, 1, 1, 1, 1);
+INSERT INTO risk_tolerance_phone VALUES('90657890', 1, 1, 0, 0, 0);
+INSERT INTO risk_tolerance_phone VALUES('93086574', 1, 1, 1, 0, 1);
+INSERT INTO risk_tolerance_phone VALUES('91430257', 1, 1, 0, 1, 0);
+INSERT INTO risk_tolerance_phone VALUES('97543123', 0, 1, 1, 1, 0);
 
 /**
-* Create normalised table from WEAK ENTITY risk tolerance,
-* stores risk_level as key
+* Create normalised table from WEAK ENTITY risk tolerance, answer combination
+* is the key.
+*
+* our own definition of survey
+*
+* score of 0 to 1: aggressive
+* score of 2 to 3: moderate
+* score of 4 to 5: conservative
+*
+* because we are only using 0 and 1, this captures all permutations
 */
 CREATE TABLE risk_tolerance_risklvl (
   risk_level varchar(15) NOT NULL CHECK (risk_level IN ('conservative', 'moderate', 'aggressive')),
-  q1_answer varchar(255),
-  q2_answer varchar(255),
-  q3_answer varchar(255),
-  q4_answer varchar(255),
-  q5_answer varchar(255),
-  CONSTRAINT PK_risk_tolerance_risklvl PRIMARY KEY(q1_answer, q2_answer, q3_answer, q4_answer, q5_answer),
+  q1_answer int NOT NULL CHECK (q1_answer IN (0, 1)),
+  q2_answer int NOT NULL CHECK (q2_answer IN (0, 1)),
+  q3_answer int NOT NULL CHECK (q3_answer IN (0, 1)),
+  q4_answer int NOT NULL CHECK (q4_answer IN (0, 1)),
+  q5_answer int NOT NULL CHECK (q5_answer IN (0, 1)),
+  score AS (q1_answer + q2_answer + q3_answer + q4_answer + q5_answer),
+  CONSTRAINT PK_risk_tolerance_risklvl PRIMARY KEY(q1_answer, q2_answer, q3_answer, q4_answer, q5_answer)
 );
 
-/**
-* TO-DO: create records
-*/
+-- Aggressive (score 0 to 1)
+INSERT INTO risk_tolerance_risklvl
+VALUES
+  ('aggressive', 0, 0, 0, 0, 0),
+  ('aggressive', 1, 0, 0, 0, 0),
+  ('aggressive', 0, 1, 0, 0, 0),
+  ('aggressive', 0, 0, 1, 0, 0),
+  ('aggressive', 0, 0, 0, 1, 0),
+  ('aggressive', 0, 0, 0, 0, 1);
 
+-- Moderate (score 2 to 3)
+INSERT INTO risk_tolerance_risklvl
+VALUES
+  ('moderate', 1, 1, 0, 0, 0), -- score 2
+  ('moderate', 1, 0, 1, 0, 0), -- score 2
+  ('moderate', 1, 0, 0, 1, 0), -- score 2
+  ('moderate', 1, 0, 0, 0, 1), -- score 2
+  ('moderate', 0, 1, 1, 0, 0), -- score 2
+  ('moderate', 0, 1, 0, 1, 0), -- score 2
+  ('moderate', 0, 1, 0, 0, 1), -- score 2
+  ('moderate', 0, 0, 1, 1, 0), -- score 2
+  ('moderate', 0, 0, 1, 0, 1), -- score 2
+  ('moderate', 0, 0, 0, 1, 1), -- score 2
+  ('moderate', 1, 1, 1, 0, 0), -- score 3
+  ('moderate', 1, 1, 0, 1, 0), -- score 3
+  ('moderate', 1, 1, 0, 0, 1), -- score 3
+  ('moderate', 1, 0, 1, 1, 0), -- score 3
+  ('moderate', 1, 0, 1, 0, 1), -- score 3
+  ('moderate', 1, 0, 0, 1, 1), -- score 3
+  ('moderate', 0, 1, 1, 1, 0), -- score 3
+  ('moderate', 0, 1, 1, 0, 1), -- score 3
+  ('moderate', 0, 1, 0, 1, 1), -- score 3
+  ('moderate', 0, 0, 1, 1, 1); -- score 3
+
+-- Conservative (score 4 to 5)
+INSERT INTO risk_tolerance_risklvl
+VALUES
+  ('conservative', 1, 1, 1, 1, 0), -- score 4
+  ('conservative', 1, 1, 1, 0, 1), -- score 4
+  ('conservative', 1, 1, 0, 1, 1), -- score 4
+  ('conservative', 1, 0, 1, 1, 1), -- score 4
+  ('conservative', 0, 1, 1, 1, 1), -- score 4
+  ('conservative', 1, 1, 1, 1, 1); -- score 5
 
 
 /**
@@ -240,20 +349,183 @@ CREATE TABLE portfolio (
   inception_date datetime, 
   market_value money,
   management_fee smallmoney,
-  operational_status binary(1), 
+  operational_status bit, 
   CONSTRAINT PK_portfolio PRIMARY KEY (phone_number, pid),
   CONSTRAINT FK_portfolio_TO_investor_valid FOREIGN KEY (phone_number) REFERENCES investor_valid(phone_number)
 );
 
 
-/**
-* For demonstration purpose, each person has three portoflio.
+/** For demonstration purpose, each person has three portoflio.
 *
 * This is because in the ER diagram, they did not consider the point that each
 * financial goal is tied to a portfolio.
+*
+*
+* We will use ALTER TABLE to update the management_fee later automatically.
 */
-/* INSERT INTO portfolio VALUES('81067405', 100, 23.01, '2023-01-01', 110210, 880, 1);  */
 
+-- Alice Tan
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('81232345', 1, -10.12, '2023-01-01 09:12:33', 1050000, 1);
+
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('81232345', 2, 10.12, '2023-03-01 09:12:33', 1050000, 2);
+
+
+
+-- Bob Lim
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('93456789', 1, 30.15, '2024-01-01 11:05:45', 1300000, 1);
+
+
+-- Cindy Lee
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('95551234', 1, -23.05, '2023-03-12 16:33:09', 870000, 1);
+
+
+-- David Ong
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('98765432', 1, 10.09, '2023-09-01 08:22:17', 1150000, 1);
+
+
+-- Eva Chua
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('90123456', 1, 40.11, '2024-02-20 14:11:58', 1400000, 1);
+
+
+-- Fiona Tan
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('92226789', 1, 20.05, '2023-08-01 17:09:04', 880000, 1);
+
+
+-- George Ho
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('96547890', 1, 10.13, '2023-01-01 10:18:29', 990000, 1);
+
+
+-- Hannah Goh
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('98324567', 1, 15.10, '2023-03-03 13:41:36', 1020000, 1);
+
+
+-- Ian Cheong
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('94786234', 1, -20.02, '2022-11-11 12:57:48', 760000, 1);
+
+
+-- Jacky Lau
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('89950123', 1, 30.14, '2021-01-15 09:45:10', 1260000, 1);
+
+
+-- Kara Chia
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('82340987', 1, 19.03, '2023-04-04 18:03:28', 790000, 1);
+
+
+-- Lenny Tan
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('97861234', 1, 3.07, '2023-06-01 07:30:55', 880000, 1);
+
+
+-- Megan Tay
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('90657890', 1, 2.09, '2020-05-10 16:27:19', 1120000, 1);
+
+
+-- Nina Koh
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('93086574', 1, 4.08, '2022-10-10 15:14:46', 990000, 1);
+
+
+-- Oscar Tan
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('91430257', 1, 10.06, '2023-01-01 10:10:10', 870000, 1);
+
+
+-- Paul Lim
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('97543123', 1, -20.04, '2023-07-07 19:52:11', 910000, 1);
+
+-- Yang Kai De
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('81067405', 1, 15.25, '2021-12-12 10:15:45', 1100000, 1);
+
+-- Zhuo Si Wen
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('81241249', 1, -5.45, '2023-11-01 08:30:33', 870000, 1);
+
+-- Blake Wood
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('81548849', 1, 25.62, '2022-10-10 14:20:20', 1200000, 1);
+
+-- How Rui En
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('83248451', 1, 12.36, '2022-09-01 08:30:55', 990000, 1);
+
+-- Shen Shu Qi
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('86093078', 1, 3.77, '2023-08-15 11:12:10', 850000, 1);
+
+-- Goh Jun Cheng
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('86408389', 1, 8.92, '2021-07-01 14:22:33', 930000, 1);
+
+-- Lam Zi Rui
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('86916680', 1, 16.05, '2022-06-15 16:55:40', 1180000, 1);
+
+-- Beh Kai De
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('86999698', 1, -1.25, '2023-05-01 10:45:01', 940000, 1);
+
+-- Zhuo En Hui
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('87346813', 1, 22.14, '2022-04-05 13:11:20', 1150000, 1);
+
+-- Qin Xin En
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('88597986', 1, 10.58, '2023-03-10 09:30:50', 1000000, 1);
+
+-- Chen Kai Ming
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('92347678', 1, 4.77, '2021-02-25 12:12:25', 920000, 1);
+
+-- Hong Kai Ming
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('92948260', 1, 13.50, '2020-01-18 11:00:45', 1150000, 1);
+
+-- Ho Jia Xin
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('93641335', 1, 7.80, '2023-01-25 14:05:20', 980000, 1);
+
+-- Teng Yong Rui
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('94612498', 1, -3.05, '2022-02-18 15:40:00', 910000, 1);
+
+-- Beh De Kang
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('94798210', 1, 19.50, '2023-03-12 13:50:10', 1050000, 1);
+
+-- Liew Zhi Xin
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('95067720', 1, 10.00, '2021-04-23 09:15:50', 930000, 1);
+
+-- Du Kai Xin
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('95177723', 1, -4.20, '2023-05-30 11:25:33', 880000, 1);
+
+-- Chia Jia Wen
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('95766485', 1, 6.85, '2023-06-10 12:30:15', 900000, 1);
+
+-- Clyaton Hammond
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('96827418', 1, 14.35, '2023-07-05 10:10:50', 1070000, 1);
+
+-- Zeng Kai Hui
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('97858928', 1, 11.45, '2020-08-19 13:45:33', 1000000, 1);
 
 
 /**
@@ -264,6 +536,13 @@ CREATE TABLE portfolio (
 * note that users can update their invested value!
 * therefore value_on represents the LATEST date,
 * keep old entries!
+*
+* the LATEST invested_value (let's assume the current year is 2024)
+* less the annualised return is the invested value.
+*
+* we will do this by using ALTER TABLE
+* 
+* at lest one of the invested_value should be the inception_date!!
 */
 CREATE TABLE invested_value (
   value_on datetime,
@@ -274,11 +553,53 @@ CREATE TABLE invested_value (
   CONSTRAINT FK_invested_value_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
 
-/* INSERT INTO invested_value VALUES('2023-0-01', 100, '81067405', 90000); */
-/* INSERT INTO invested_value VALUES('2024-01-01', 100, '81067405', 100000);  */
 
-
-
+INSERT INTO invested_value (phone_number, pid, value_on, amount)
+SELECT
+    p.phone_number,
+    p.pid,
+    p.inception_date AS value_on,
+    p.market_value / (1 + p.annualised_return / 100) AS amount
+FROM
+    portfolio AS p
+WHERE
+  p.phone_number = '81067405' AND p.pid = 1 OR -- Yang Kai De
+  p.phone_number = '81232345' AND p.pid = 1 OR -- Alice Tan
+  p.phone_number = '81241249' AND p.pid = 1 OR -- Zhuo Si Wen
+  p.phone_number = '81548849' AND p.pid = 1 OR -- Blake Wood
+  p.phone_number = '82340987' AND p.pid = 1 OR -- Kara Chia
+  p.phone_number = '83248451' AND p.pid = 1 OR -- How Rui En
+  p.phone_number = '86093078' AND p.pid = 1 OR -- Shen Shu Qi
+  p.phone_number = '86408389' AND p.pid = 1 OR -- Goh Jun Cheng
+  p.phone_number = '86916680' AND p.pid = 1 OR -- Lam Zi Rui
+  p.phone_number = '86999698' AND p.pid = 1 OR -- Beh Kai De
+  p.phone_number = '87346813' AND p.pid = 1 OR -- Zhuo En Hui
+  p.phone_number = '88597986' AND p.pid = 1 OR -- Qin Xin En
+  p.phone_number = '89950123' AND p.pid = 1 OR -- Jacky Lau
+  p.phone_number = '90123456' AND p.pid = 1 OR -- Eva Chua
+  p.phone_number = '90657890' AND p.pid = 1 OR -- Megan Tay
+  p.phone_number = '91430257' AND p.pid = 1 OR -- Oscar Tan
+  p.phone_number = '92226789' AND p.pid = 1 OR -- Fiona Tan
+  p.phone_number = '92347678' AND p.pid = 1 OR -- Chen Kai Ming
+  p.phone_number = '92948260' AND p.pid = 1 OR -- Hong Kai Ming
+  p.phone_number = '93086574' AND p.pid = 1 OR -- Nina Koh
+  p.phone_number = '93456789' AND p.pid = 1 OR -- Bob Lim
+  p.phone_number = '93641335' AND p.pid = 1 OR -- Ho Jia Xin
+  p.phone_number = '94612498' AND p.pid = 1 OR -- Teng Yong Rui
+  p.phone_number = '94786234' AND p.pid = 1 OR -- Ian Cheong
+  p.phone_number = '94798210' AND p.pid = 1 OR -- Beh De Kang
+  p.phone_number = '95067720' AND p.pid = 1 OR -- Liew Zhi Xin
+  p.phone_number = '95177723' AND p.pid = 1 OR -- Du Kai Xin
+  p.phone_number = '95551234' AND p.pid = 1 OR -- Cindy Lee
+  p.phone_number = '95766485' AND p.pid = 1 OR -- Chia Jia Wen
+  p.phone_number = '96547890' AND p.pid = 1 OR -- George Ho
+  p.phone_number = '96827418' AND p.pid = 1 OR -- Clyaton Hammond
+  p.phone_number = '97543123' AND p.pid = 1 OR -- Paul Lim
+  p.phone_number = '97858928' AND p.pid = 1 OR -- Zeng Kai Hui
+  p.phone_number = '97861234' AND p.pid = 1 OR -- Lenny Tan
+  p.phone_number = '98324567' AND p.pid = 1 OR -- Hannah Goh
+  p.phone_number = '98765432' AND p.pid = 1   -- David Ong
+;
 
 CREATE TABLE unrealised_gain_loss (
   value_on datetime,
@@ -290,7 +611,42 @@ CREATE TABLE unrealised_gain_loss (
 );
 
 
-
+-- Yang Kai De 81067405
+-- Alice Tan 81232345
+-- Zhuo Si Wen 81241249
+-- Blake Wood 81548849
+-- Kara Chia 82340987
+-- How Rui En 83248451
+-- Shen Shu Qi 86093078
+-- Goh Jun Cheng 86408389
+-- Lam Zi Rui 86916680
+-- Beh Kai De 86999698
+-- Zhuo En Hui 87346813
+-- Qin Xin En 88597986
+-- Jacky Lau 89950123
+-- Eva Chua 90123456
+-- Megan Tay 90657890
+-- Oscar Tan 91430257
+-- Fiona Tan 92226789
+-- Chen Kai Ming 92347678
+-- Hong Kai Ming 92948260
+-- Nina Koh 93086574
+-- Bob Lim 93456789
+-- Ho Jia Xin 93641335
+-- Teng Yong Rui 94612498
+-- Ian Cheong 94786234
+-- Beh De Kang 94798210
+-- Liew Zhi Xin 95067720
+-- Du Kai Xin 95177723
+-- Cindy Lee 95551234
+-- Chia Jia Wen 95766485
+-- George Ho 96547890
+-- Clyaton Hammond 96827418
+-- Paul Lim 97543123
+-- Zeng Kai Hui 97858928
+-- Lenny Tan 97861234
+-- Hannah Goh 98324567
+-- David Ong 98765432
 
 
 /**
@@ -388,6 +744,16 @@ INSERT INTO asset_others VALUES('LUMBER=F', 'Lumber Futures (Apr 2025)', 540.00)
 /**
 * allocation_ratio has precision 0.XXX to 1.000 exclusive
 *
+* note that the ER diagram specified that 
+* the individual id is a primary key
+*
+* for simplicity sake, let's check that one portfolio
+* has exactly one stock, one bond, one fund.
+*
+* for initialisation purpose, let
+* the start_date of each asset be 
+* the inception_date of the portfolio
+* 
 */
 CREATE TABLE stock_in_portfolio (
   id int PRIMARY KEY,
@@ -400,7 +766,15 @@ CREATE TABLE stock_in_portfolio (
   CONSTRAINT FK_stock_in_portfolio_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
 
-/* INSERT INTO stock_in_portfolio VALUES(1, 1, '2023-01-01', 0.4, 'Vanguard', '81067405', 'NVDA'); */
+INSERT INTO stock_in_porfolio (id, pid, start_date, allocation_ratio, post_trade_co, phone_number, asset_id)
+SELECT 
+  p.inception_date AS start_date
+FROM 
+  portfolio AS p
+WHERE
+  id = 1 AND pid = 1 AND phone_nubmer = p.phone_number AND incpetio
+
+
 
 
 
@@ -432,6 +806,8 @@ CREATE TABLE fund_in_portfolio (
 
 /**
 * Transactions 
+*
+* To answer Q5 requires top up
 */
 
 CREATE TABLE transaction_stock (
