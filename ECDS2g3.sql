@@ -766,6 +766,7 @@ CREATE TABLE stock_in_portfolio (
   CONSTRAINT FK_stock_in_portfolio_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
 
+/**
 INSERT INTO stock_in_porfolio (id, pid, start_date, allocation_ratio, post_trade_co, phone_number, asset_id)
 SELECT 
   p.inception_date AS start_date
@@ -773,6 +774,7 @@ FROM
   portfolio AS p
 WHERE
   id = 1 AND pid = 1 AND phone_nubmer = p.phone_number AND incpetio
+**/
 
 
 
@@ -838,6 +840,5 @@ CREATE TABLE transaction_fund (
   CONSTRAINT PK_transaction_fund PRIMARY KEY (occurred_on, id),
   CONSTRAINT FK_transaction_fund_TO_fund_in_portfolio FOREIGN KEY (id) REFERENCES fund_in_portfolio(id)
 );
-
 
 
