@@ -381,6 +381,9 @@ VALUES ('81232345', 1, -10.12, '2023-01-01 09:12:33', 1050000, 1);
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
 VALUES ('81232345', 2, 10.12, '2023-03-01 09:13:34', 1050000, 0); -- non-operational
 
+-- For Q3 : the values are fixed so that they are consistent!
+INSERT INTO portfolio  (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('81232345', 3, 5, '2024-01-01 00:00:00', 1050, 0); 
 
 -- Bob Lim
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
@@ -647,6 +650,48 @@ CREATE TABLE unrealised_gain_loss (
   CONSTRAINT PK_unrealised_gain_loss PRIMARY KEY (value_on, pid, phone_number),
   CONSTRAINT FK_unrealised_gain_loss_TO_porfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
+
+
+-- hard code Alice Tan PID = 3 for answering Q3
+-- the total change when sum up should be +50  (they said **Accrued**, so accumulated)
+-- only use start and end of month, and always at 23:59:59
+
+INSERT INTO unrealised_gain_loss VALUES ('2024-01-01 23:59:59', 3, '81232345', 100);
+INSERT INTO unrealised_gain_loss VALUES ('2024-01-31 23:59:59', 3, '81232345', -50);
+INSERT INTO unrealised_gain_loss VALUES ('2024-02-01 23:59:59', 3, '81232345', 200);
+INSERT INTO unrealised_gain_loss VALUES ('2024-02-29 23:59:59', 3, '81232345', -100);
+INSERT INTO unrealised_gain_loss VALUES ('2024-03-01 23:59:59', 3, '81232345', 150);
+INSERT INTO unrealised_gain_loss VALUES ('2024-03-31 23:59:59', 3, '81232345', -75);
+INSERT INTO unrealised_gain_loss VALUES ('2024-04-01 23:59:59', 3, '81232345', 120);
+INSERT INTO unrealised_gain_loss VALUES ('2024-04-30 23:59:59', 3, '81232345', -60);
+INSERT INTO unrealised_gain_loss VALUES ('2024-05-01 23:59:59', 3, '81232345', 180);
+INSERT INTO unrealised_gain_loss VALUES ('2024-05-31 23:59:59', 3, '81232345', -90);
+INSERT INTO unrealised_gain_loss VALUES ('2024-06-01 23:59:59', 3, '81232345', 140);
+INSERT INTO unrealised_gain_loss VALUES ('2024-06-30 23:59:59', 3, '81232345', -70);
+INSERT INTO unrealised_gain_loss VALUES ('2024-07-01 23:59:59', 3, '81232345', 160);
+INSERT INTO unrealised_gain_loss VALUES ('2024-07-31 23:59:59', 3, '81232345', -80);
+INSERT INTO unrealised_gain_loss VALUES ('2024-08-01 23:59:59', 3, '81232345', 190);
+INSERT INTO unrealised_gain_loss VALUES ('2024-08-31 23:59:59', 3, '81232345', -95);
+INSERT INTO unrealised_gain_loss VALUES ('2024-09-01 23:59:59', 3, '81232345', 110);
+INSERT INTO unrealised_gain_loss VALUES ('2024-09-30 23:59:59', 3, '81232345', -55);
+INSERT INTO unrealised_gain_loss VALUES ('2024-10-01 23:59:59', 3, '81232345', 130);
+INSERT INTO unrealised_gain_loss VALUES ('2024-10-31 23:59:59', 3, '81232345', -65);
+INSERT INTO unrealised_gain_loss VALUES ('2024-11-01 23:59:59', 3, '81232345', 170);
+INSERT INTO unrealised_gain_loss VALUES ('2024-11-30 23:59:59', 3, '81232345', -85);
+INSERT INTO unrealised_gain_loss VALUES ('2024-12-01 23:59:59', 3, '81232345', 200);
+INSERT INTO unrealised_gain_loss VALUES ('2024-12-31 23:59:59', 3, '81232345', -975);
+
+
+
+-- Create DateSeq so don't have to manually write it out
+-- however this is only if we want to do EVERY DATE which is impractical
+/*
+CREATE SEQUENCE DateSeq  
+    AS INT  
+    START WITH 0  
+    INCREMENT BY 1  
+    NO CYCLE;  
+*/ 
 
 
 
