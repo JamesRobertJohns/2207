@@ -768,6 +768,7 @@ INSERT INTO stock_in_portfolio (phone_number, pid, asset_id, post_trade_co, star
   p.phone_number = '90123456' AND p.pid = 1; -- Eva Chua
 
 
+
 INSERT INTO stock_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
   SELECT
     p.phone_number,
