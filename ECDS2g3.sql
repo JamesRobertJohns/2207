@@ -1136,6 +1136,57 @@ CREATE TABLE transaction_stock (
 );
 
 
+-- initialising purchase for all pid = 1
+INSERT INTO transaction_stock (occurred_on, id, type, fee) -- fix all for the pid = 1
+SELECT
+    p.inception_date AS occurred_on,
+    s.id AS id,
+    'purchase' AS type,
+    0 AS fee
+FROM
+  portfolio AS p
+JOIN
+  stock_in_portfolio AS s ON p.phone_number = s.phone_number AND s.pid = p.pid
+WHERE
+  (s.phone_number = '81067405' AND s.pid = 1) OR -- Yang Kai De	
+  (s.phone_number = '81232345' AND s.pid = 1) OR -- Alice Tan
+  (s.phone_number = '81241249' AND s.pid = 1) OR -- Zhuo Si Wen
+  (s.phone_number = '81548849' AND s.pid = 1) OR -- Blake Wood
+  (s.phone_number = '82340987' AND s.pid = 1) OR -- Kara Chia
+  (s.phone_number = '83248451' AND s.pid = 1) OR -- How Rui En
+  (s.phone_number = '86093078' AND s.pid = 1) OR -- Shen Shu Qi
+  (s.phone_number = '86408389' AND s.pid = 1) OR -- Goh Jun Cheng
+  (s.phone_number = '86916680' AND s.pid = 1) OR -- Lam Zi Rui
+  (s.phone_number = '86999698' AND s.pid = 1) OR -- Beh Kai De
+  (s.phone_number = '87346813' AND s.pid = 1) OR -- Zhuo En Hui
+  (s.phone_number = '88597986' AND s.pid = 1) OR -- Qin Xin En
+  (s.phone_number = '89950123' AND s.pid = 1) OR -- Jacky Lau
+  (s.phone_number = '90123456' AND s.pid = 1) OR -- Eva Chua
+  (s.phone_number = '90657890' AND s.pid = 1) OR -- Megan Tay
+  (s.phone_number = '91430257' AND s.pid = 1) OR -- Oscar Tan
+  (s.phone_number = '92226789' AND s.pid = 1) OR -- Fiona Tan
+  (s.phone_number = '92347678' AND s.pid = 1) OR -- Chen Kai Ming
+  (s.phone_number = '92948260' AND s.pid = 1) OR -- Hong Kai Ming
+  (s.phone_number = '93086574' AND s.pid = 1) OR -- Nina Koh
+  (s.phone_number = '93456789' AND s.pid = 1) OR -- Bob Lim
+  (s.phone_number = '93641335' AND s.pid = 1) OR -- Ho Jia Xin
+  (s.phone_number = '94612498' AND s.pid = 1) OR -- Teng Yong Rui
+  (s.phone_number = '94786234' AND s.pid = 1) OR -- Ian Cheong
+  (s.phone_number = '94798210' AND s.pid = 1) OR -- Beh De Kang
+  (s.phone_number = '95067720' AND s.pid = 1) OR -- Liew Zhi Xin
+  (s.phone_number = '95177723' AND s.pid = 1) OR -- Du Kai Xin
+  (s.phone_number = '95551234' AND s.pid = 1) OR -- Cindy Lee
+  (s.phone_number = '95766485' AND s.pid = 1) OR -- Chia Jia Wen
+  (s.phone_number = '96547890' AND s.pid = 1) OR -- George Ho
+  (s.phone_number = '96827418' AND s.pid = 1) OR -- Clyaton Hammond
+  (s.phone_number = '97543123' AND s.pid = 1) OR -- Paul Lim
+  (s.phone_number = '97858928' AND s.pid = 1) OR -- Zeng Kai Hui
+  (s.phone_number = '97861234' AND s.pid = 1) OR -- Lenny Tan
+  (s.phone_number = '98324567' AND s.pid = 1) OR -- Hannah Goh
+  (s.phone_number = '98765432' AND s.pid = 1);   -- David Ong
+
+
+
 
 /**
 * The following is to show non-operational accounts for
@@ -1193,7 +1244,6 @@ CREATE TABLE transaction_bond (
 
 
 -- initialising purchase for all pid = 1
-
 INSERT INTO transaction_bond (occurred_on, id, type, fee) -- fix all for the pid = 1
 SELECT
     p.inception_date AS occurred_on,
@@ -1296,6 +1346,57 @@ CREATE TABLE transaction_fund (
   CONSTRAINT PK_transaction_fund PRIMARY KEY (occurred_on, id),
   CONSTRAINT FK_transaction_fund_TO_fund_in_portfolio FOREIGN KEY (id) REFERENCES fund_in_portfolio(id)
 );
+
+
+-- initialising purchase for all pid = 1
+INSERT INTO transaction_fund (occurred_on, id, type, fee) -- fix all for the pid = 1
+SELECT
+    p.inception_date AS occurred_on,
+    s.id AS id,
+    'purchase' AS type,
+    0 AS fee
+FROM
+  portfolio AS p
+JOIN
+  fund_in_portfolio AS s ON p.phone_number = s.phone_number AND s.pid = p.pid
+WHERE
+  (s.phone_number = '81067405' AND s.pid = 1) OR -- Yang Kai De	
+  (s.phone_number = '81232345' AND s.pid = 1) OR -- Alice Tan
+  (s.phone_number = '81241249' AND s.pid = 1) OR -- Zhuo Si Wen
+  (s.phone_number = '81548849' AND s.pid = 1) OR -- Blake Wood
+  (s.phone_number = '82340987' AND s.pid = 1) OR -- Kara Chia
+  (s.phone_number = '83248451' AND s.pid = 1) OR -- How Rui En
+  (s.phone_number = '86093078' AND s.pid = 1) OR -- Shen Shu Qi
+  (s.phone_number = '86408389' AND s.pid = 1) OR -- Goh Jun Cheng
+  (s.phone_number = '86916680' AND s.pid = 1) OR -- Lam Zi Rui
+  (s.phone_number = '86999698' AND s.pid = 1) OR -- Beh Kai De
+  (s.phone_number = '87346813' AND s.pid = 1) OR -- Zhuo En Hui
+  (s.phone_number = '88597986' AND s.pid = 1) OR -- Qin Xin En
+  (s.phone_number = '89950123' AND s.pid = 1) OR -- Jacky Lau
+  (s.phone_number = '90123456' AND s.pid = 1) OR -- Eva Chua
+  (s.phone_number = '90657890' AND s.pid = 1) OR -- Megan Tay
+  (s.phone_number = '91430257' AND s.pid = 1) OR -- Oscar Tan
+  (s.phone_number = '92226789' AND s.pid = 1) OR -- Fiona Tan
+  (s.phone_number = '92347678' AND s.pid = 1) OR -- Chen Kai Ming
+  (s.phone_number = '92948260' AND s.pid = 1) OR -- Hong Kai Ming
+  (s.phone_number = '93086574' AND s.pid = 1) OR -- Nina Koh
+  (s.phone_number = '93456789' AND s.pid = 1) OR -- Bob Lim
+  (s.phone_number = '93641335' AND s.pid = 1) OR -- Ho Jia Xin
+  (s.phone_number = '94612498' AND s.pid = 1) OR -- Teng Yong Rui
+  (s.phone_number = '94786234' AND s.pid = 1) OR -- Ian Cheong
+  (s.phone_number = '94798210' AND s.pid = 1) OR -- Beh De Kang
+  (s.phone_number = '95067720' AND s.pid = 1) OR -- Liew Zhi Xin
+  (s.phone_number = '95177723' AND s.pid = 1) OR -- Du Kai Xin
+  (s.phone_number = '95551234' AND s.pid = 1) OR -- Cindy Lee
+  (s.phone_number = '95766485' AND s.pid = 1) OR -- Chia Jia Wen
+  (s.phone_number = '96547890' AND s.pid = 1) OR -- George Ho
+  (s.phone_number = '96827418' AND s.pid = 1) OR -- Clyaton Hammond
+  (s.phone_number = '97543123' AND s.pid = 1) OR -- Paul Lim
+  (s.phone_number = '97858928' AND s.pid = 1) OR -- Zeng Kai Hui
+  (s.phone_number = '97861234' AND s.pid = 1) OR -- Lenny Tan
+  (s.phone_number = '98324567' AND s.pid = 1) OR -- Hannah Goh
+  (s.phone_number = '98765432' AND s.pid = 1);   -- David Ong
+
 
 
 
