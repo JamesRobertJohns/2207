@@ -379,18 +379,26 @@ INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, mar
 VALUES ('81232345', 1, -10.12, '2023-01-01 09:12:33', 1050000, 1);
 
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
-VALUES ('81232345', 2, 10.12, '2023-03-01 09:12:33', 1050000, 2);
-
+VALUES ('81232345', 2, 10.12, '2023-03-01 09:13:34', 1050000, 0); -- non-operational
 
 
 -- Bob Lim
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
 VALUES ('93456789', 1, 30.15, '2024-01-01 11:05:45', 1300000, 1);
 
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('93456789', 2, 0.15, '2020-11-01 11:15:45', 10000, 0); -- non-operational
+
+
 
 -- Cindy Lee
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
 VALUES ('95551234', 1, -23.05, '2023-03-12 16:33:09', 870000, 1);
+
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('95551234', 2, -3.05, '2020-03-12 16:33:19', 10000, 0); -- non-operational
+
+
 
 
 -- David Ong
@@ -611,6 +619,26 @@ WHERE
   p.phone_number = '98765432' AND p.pid = 1   -- David Ong
 ;
 
+
+-- these are for Alice Tan, Bob Lim and Cindy Lee, to demonstrate
+-- non-operational accounts with invested value = 0
+
+-- (1) initial value on inception
+-- these are values directly from how it was initialised initially
+
+INSERT INTO invested_value VALUES ('2023-03-01 09:13:34', 2, '81232345', 1050000); -- Alice Tan
+INSERT INTO invested_value VALUES ('2020-11-01 11:15:45', 2, '93456789', 10000); -- Bob Lim
+INSERT INTO invested_value VALUES ('2020-03-12 16:33:19', 2, '95551234', 10000); -- Cindy Lee
+
+-- (2) final value after withdrawal, set to 0, withdrawal all on 2024-01-01
+-- 00:00:00, their pid is all 2
+
+INSERT INTO invested_value VALUES ('2024-01-01 00:00:00', 2, '81232345', 0); -- Alice Tan
+INSERT INTO invested_value VALUES ('2024-01-01 00:00:00', 2, '93456789', 0); -- Bob Lim
+INSERT INTO invested_value VALUES ('2024-01-01 00:00:00', 2, '95551234', 0); -- Cindy Lee
+
+
+
 CREATE TABLE unrealised_gain_loss (
   value_on datetime,
   pid integer,
@@ -816,9 +844,38 @@ INSERT INTO stock_in_portfolio (phone_number, pid, asset_id, post_trade_co, star
   p.phone_number = '98765432' AND p.pid = 1; -- David Ong
 
 
+/**
+* The following is to show non-operational accounts for
+* ALice Tan pid = 2
+* Bob Lim pid = 2
+* Cindy Lee pid = 2
+*
+*
+* 1) insert into the stock the inception date to initialise (stock_in_portfolio)
+* 2) add the record in purchase (transaction_stock)
+* 3) add the record in withdrawal (transaction_stock)
+*
+* following 0.5 stock, 0.3 bond, o.2 fund
+*/
+
+INSERT INTO stock_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'JPM' AS asset_id,
+    'Moomoo' AS post_trade_co,
+    p.inception_date AS start_date,
+    0.5 AS allocation_ratio
+  FROM
+  portfolio AS p
+  WHERE 
+  p.phone_number = '95551234' AND p.pid = 2 OR -- Cindy Lee
+  p.phone_number = '81232345' AND p.pid = 2 OR -- Alice Tan
+  p.phone_number = '93456789' AND p.pid = 2; -- Bob Lim
+
 
 CREATE TABLE bond_in_portfolio (
-  id int PRIMARY KEY,
+  id int IDENTITY(1,1) PRIMARY KEY,
   pid int,
   start_date datetime NOT NULL,
   allocation_ratio decimal(4, 3) NOT NULL CHECK (allocation_ratio > 0 AND allocation_ratio < 1),
@@ -827,6 +884,37 @@ CREATE TABLE bond_in_portfolio (
   asset_id varchar(20),
   CONSTRAINT FK_bond_in_portfolio_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
+
+
+
+/**
+* The following is to show non-operational accounts for
+* ALice Tan pid = 2
+* Bob Lim pid = 2
+* Cindy Lee pid = 2
+*
+*
+* 1) insert into the bond the inception date to initialise (bond_in_portfolio)
+* 2) add the record in purchase (transaction_bond)
+* 3) add the record in withdrawal (transaction_bond)
+*
+* following 0.5 stock, 0.3 bond, o.2 fund
+*/
+
+INSERT INTO bond_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'SG31A8000003' AS asset_id,
+    'SGX' AS post_trade_co,
+    p.inception_date AS start_date,
+    0.3 AS allocation_ratio
+  FROM
+  portfolio AS p
+  WHERE 
+  p.phone_number = '95551234' AND p.pid = 2 OR -- Cindy Lee
+  p.phone_number = '81232345' AND p.pid = 2 OR -- Alice Tan
+  p.phone_number = '93456789' AND p.pid = 2; -- Bob Lim
 
 
 
@@ -923,17 +1011,34 @@ INSERT INTO fund_in_portfolio (phone_number, pid, asset_id, post_trade_co, start
 
 
 /**
-
-Chia Jia Wen	95766485
-George Ho	96547890
-Clyaton Hammond	96827418
-Paul Lim	97543123
-Zeng Kai Hui	97858928
-Lenny Tan	97861234
-Hannah Goh	98324567
-David Ong	98765432
-
+* The following is to show non-operational accounts for
+* ALice Tan pid = 2
+* Bob Lim pid = 2
+* Cindy Lee pid = 2
+*
+*
+* 1) insert into the bond the inception date to initialise (fund_in_portfolio)
+* 2) add the record in purchase (transaction_fund)
+* 3) add the record in withdrawal (transaction_fund)
+*
+* following 0.5 stock, 0.3 bond, o.2 fund
 */
+
+INSERT INTO fund_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'QQQ' AS asset_id,
+    'Vanguard' AS post_trade_co,
+    p.inception_date AS start_date,
+    0.3 AS allocation_ratio
+  FROM
+  portfolio AS p
+  WHERE 
+  p.phone_number = '95551234' AND p.pid = 2 OR -- Cindy Lee
+  p.phone_number = '81232345' AND p.pid = 2 OR -- Alice Tan
+  p.phone_number = '93456789' AND p.pid = 2; -- Bob Lim
+
 
 
 /**
@@ -945,30 +1050,165 @@ David Ong	98765432
 
 CREATE TABLE transaction_stock (
   occurred_on datetime,
-  id int,
-  type varchar(20) CHECK (type IN ('topup', 'withdrawal', 'management', 'rebalance')),
+  id int, -- stock in portfolio id
+  type varchar(20) CHECK (type IN ('purchase', 'topup', 'withdrawal', 'management', 'rebalance')),
+  fee money,
   CONSTRAINT PK_transaction_stock PRIMARY KEY (occurred_on, id),
   CONSTRAINT FK_transaction_stock_TO_stock_in_portfolio FOREIGN KEY (id) REFERENCES stock_in_portfolio(id)
 );
 
 
+
+/**
+* The following is to show non-operational accounts for
+* ALice Tan pid = 2
+* Bob Lim pid = 2
+* Cindy Lee pid = 2
+*
+*
+* 1) insert into the stock the inception date to initialise (stock_in_portfolio)
+* 2) add the record in purchase (transaction_stock)
+* 3) add the record in withdrawal (transaction_stock)
+*
+* following 0.5 stock, 0.3 bond, o.2 fund
+*/
+
+-- (2) purchase, they should have fee 0
+INSERT INTO transaction_stock (occurred_on, id,type, fee) -- because we fixed pid = 2 for the above to be invalid, these always work
+SELECT
+    p.inception_date AS occurred_on,
+    s.id AS id,
+    'purchase' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  s.phone_number = '81232345' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Alice Tan
+  s.phone_number = '93456789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Bob Lim
+  s.phone_number = '95551234' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number; -- Cindy Lee
+
+-- (3) withdrawal, they should have fee 0, fix them all to the standard time
+INSERT INTO transaction_stock (occurred_on, id,type, fee) -- because we fixed pid = 2 for the above to be invalid, these always work
+SELECT
+    '2024-01-01 00:00:00' AS occurred_on,
+    s.id AS id,
+    'withdrawal' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  s.phone_number = '81232345' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Alice Tan
+  s.phone_number = '93456789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Bob Lim
+  s.phone_number = '95551234' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number; -- Cindy Lee
+
+
+
+
 CREATE TABLE transaction_bond (
   occurred_on datetime,
-  id int,
-  type varchar(20) CHECK (type IN ('topup', 'withdrawal', 'management', 'rebalance')),
+  id int, -- bond in porfolio id
+  type varchar(20) CHECK (type IN ('purchase', 'topup', 'withdrawal', 'management', 'rebalance')),
+  fee money,
   CONSTRAINT PK_transaction_bond PRIMARY KEY (occurred_on, id),
   CONSTRAINT FK_transaction_bond_TO_bond_in_portfolio FOREIGN KEY (id) REFERENCES bond_in_portfolio(id)
 );
+
+
+/**
+* The following is to show non-operational accounts for
+* ALice Tan pid = 2
+* Bob Lim pid = 2
+* Cindy Lee pid = 2
+*
+*
+* 1) insert into the bond the inception date to initialise (bond_in_portfolio)
+* 2) add the record in purchase (transaction_bond)
+* 3) add the record in withdrawal (transaction_bond)
+*
+* following 0.5 stock, 0.3 bond, o.2 fund
+*/
+
+-- (2) purchase, they should have fee 0
+INSERT INTO transaction_bond (occurred_on, id,type, fee) -- because we fixed pid = 2 for the above to be invalid, these always work
+SELECT
+    p.inception_date AS occurred_on,
+    s.id AS id,
+    'purchase' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  s.phone_number = '81232345' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Alice Tan
+  s.phone_number = '93456789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Bob Lim
+  s.phone_number = '95551234' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number; -- Cindy Lee
+
+-- (3) withdrawal, they should have fee 0, fix them all to the standard time
+INSERT INTO transaction_bond (occurred_on, id,type, fee) -- because we fixed pid = 2 for the above to be invalid, these always work
+SELECT
+    '2024-01-01 00:00:00' AS occurred_on,
+    s.id AS id,
+    'withdrawal' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  s.phone_number = '81232345' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Alice Tan
+  s.phone_number = '93456789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Bob Lim
+  s.phone_number = '95551234' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number; -- Cindy Lee
 
 
 
 
 CREATE TABLE transaction_fund (
   occurred_on datetime,
-  id int,
-  type varchar(20) CHECK (type IN ('topup', 'withdrawal', 'management', 'rebalance')),
+  id int, -- fund in portfolio id
+  type varchar(20) CHECK (type IN ('purchase', 'topup', 'withdrawal', 'management', 'rebalance')),
+  fee money,
   CONSTRAINT PK_transaction_fund PRIMARY KEY (occurred_on, id),
   CONSTRAINT FK_transaction_fund_TO_fund_in_portfolio FOREIGN KEY (id) REFERENCES fund_in_portfolio(id)
 );
+
+/**
+* The following is to show non-operational accounts for
+* ALice Tan pid = 2
+* Bob Lim pid = 2
+* Cindy Lee pid = 2
+*
+*
+* 1) insert into the bond the inception date to initialise (fund_in_portfolio)
+* 2) add the record in purchase (transaction_fund)
+* 3) add the record in withdrawal (transaction_fund)
+*
+* following 0.5 stock, 0.3 bond, o.2 fund
+*/
+
+
+-- (2) purchase, they should have fee 0
+INSERT INTO transaction_fund (occurred_on, id,type, fee) -- because we fixed pid = 2 for the above to be invalid, these always work
+SELECT
+    p.inception_date AS occurred_on,
+    s.id AS id,
+    'purchase' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  s.phone_number = '81232345' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Alice Tan
+  s.phone_number = '93456789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Bob Lim
+  s.phone_number = '95551234' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number; -- Cindy Lee
+
+-- (3) withdrawal, they should have fee 0, fix them all to the standard time
+INSERT INTO transaction_fund (occurred_on, id,type, fee) -- because we fixed pid = 2 for the above to be invalid, these always work
+SELECT
+    '2024-01-01 00:00:00' AS occurred_on,
+    s.id AS id,
+    'withdrawal' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  s.phone_number = '81232345' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Alice Tan
+  s.phone_number = '93456789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Bob Lim
+  s.phone_number = '95551234' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number; -- Cindy Lee
 
 
