@@ -874,6 +874,8 @@ INSERT INTO stock_in_portfolio (phone_number, pid, asset_id, post_trade_co, star
   p.phone_number = '93456789' AND p.pid = 2; -- Bob Lim
 
 
+
+
 CREATE TABLE bond_in_portfolio (
   id int IDENTITY(1,1) PRIMARY KEY,
   pid int,
@@ -884,6 +886,82 @@ CREATE TABLE bond_in_portfolio (
   asset_id varchar(20),
   CONSTRAINT FK_bond_in_portfolio_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
+
+
+INSERT INTO bond_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'SG31A7000004' AS asset_id,
+    'SGX' AS post_trade_co,
+    p.inception_date AS start_date,
+    0.3 AS allocation_ratio
+  FROM
+  portfolio AS p
+  WHERE 
+  p.phone_number = '81067405' AND p.pid = 1 OR -- Yang Kai De
+  p.phone_number = '81232345' AND p.pid = 1 OR -- Alice Tan
+  p.phone_number = '81241249' AND p.pid = 1 OR -- Zhuo Si Wen
+  p.phone_number = '81548849' AND p.pid = 1 OR -- Blake Wood
+  p.phone_number = '82340987' AND p.pid = 1 OR -- Kara Chia
+  p.phone_number = '83248451' AND p.pid = 1 OR -- How Rui En
+  p.phone_number = '86093078' AND p.pid = 1 OR -- Shen Shu Qi
+  p.phone_number = '86408389' AND p.pid = 1 OR -- Goh Jun Cheng
+  p.phone_number = '86916680' AND p.pid = 1 OR -- Lam Zi Rui
+  p.phone_number = '86999698' AND p.pid = 1 OR -- Beh Kai De
+  p.phone_number = '87346813' AND p.pid = 1 OR -- Zhuo En Hui
+  p.phone_number = '88597986' AND p.pid = 1 OR -- Qin Xin En
+  p.phone_number = '89950123' AND p.pid = 1 OR -- Jacky Lau
+  p.phone_number = '90123456' AND p.pid = 1; -- Eva Chua
+
+
+INSERT INTO bond_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'SG31A8000003' AS asset_id,
+    'Moomoo' AS post_trade_co,
+    p.inception_date AS start_date,
+    0.3 AS allocation_ratio
+  FROM
+  portfolio AS p
+  WHERE 
+  p.phone_number = '90657890' AND p.pid = 1 OR -- Megan Tay
+  p.phone_number = '91430257' AND p.pid = 1 OR -- Oscar Tan
+  p.phone_number = '92226789' AND p.pid = 1 OR -- Fiona Tan
+  p.phone_number = '92347678' AND p.pid = 1 OR -- Chen Kai Ming
+  p.phone_number = '92948260' AND p.pid = 1 OR -- Hong Kai Ming
+  p.phone_number = '93086574' AND p.pid = 1 OR -- Nina Koh
+  p.phone_number = '93456789' AND p.pid = 1 OR -- Bob Lim
+  p.phone_number = '93641335' AND p.pid = 1 OR -- Ho Jia Xin
+  p.phone_number = '94612498' AND p.pid = 1 OR -- Teng Yong Rui
+  p.phone_number = '94786234' AND p.pid = 1 OR -- Ian Cheong
+  p.phone_number = '94798210' AND p.pid = 1 OR -- Beh De Kang
+  p.phone_number = '95067720' AND p.pid = 1 OR -- Liew Zhi Xin
+  p.phone_number = '95177723' AND p.pid = 1; -- Du Kai Xin
+
+
+INSERT INTO bond_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'SGXF13029610' AS asset_id,
+    'Saxo' AS post_trade_co,
+    p.inception_date AS start_date,
+    0.3 AS allocation_ratio
+  FROM
+  portfolio AS p
+  WHERE 
+  p.phone_number = '95551234' AND p.pid = 1 OR -- Cindy Lee
+  p.phone_number = '95766485' AND p.pid = 1 OR -- Chia Jia Wen
+  p.phone_number = '96547890' AND p.pid = 1 OR -- George Ho
+  p.phone_number = '96827418' AND p.pid = 1 OR -- Clyaton Hammond
+  p.phone_number = '97543123' AND p.pid = 1 OR -- Paul Lim
+  p.phone_number = '97858928' AND p.pid = 1 OR -- Zeng Kai Hui
+  p.phone_number = '97861234' AND p.pid = 1 OR -- Lenny Tan
+  p.phone_number = '98324567' AND p.pid = 1 OR -- Hannah Goh
+  p.phone_number = '98765432' AND p.pid = 1; -- David Ong
+
 
 
 
