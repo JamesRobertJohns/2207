@@ -2,9 +2,8 @@
 * ---------------------
 *| IMPORTANT MESSAGES |
 *----------------------
-* 1) Note that the order matters when REFERENCE, ollow the previous examples when in doubt
-* 2) The order in which the tables are created matters, as we are specifying constraints to ensure
-* referential integrity
+* 1) The order in which the tables are created matters, as we are specifying
+* constraints to ensure referential integrity
 */
 
 
@@ -70,7 +69,6 @@ INSERT INTO investor_signup VALUES('95766485', 'Chia Jia Wen', '2004-05-24', 'F'
 INSERT INTO investor_signup VALUES('95067720', 'Liew Zhi Xin', '1998-02-14', 'F');
 INSERT INTO investor_signup VALUES('95177723', 'Du Kai Xin', '2002-12-12', 'F');
 INSERT INTO investor_signup VALUES('93641335', 'Ho Jia Xin', '1997-07-16', 'F');
-
 
 
 /**
@@ -154,7 +152,6 @@ INSERT INTO investor_valid VALUES('jiajia11@outlook.com', 'OCBC Bank', 58000, '9
 
 
 
-
 /**
 * Create table for Weak Entity financial_goal
 * 
@@ -164,9 +161,20 @@ INSERT INTO investor_valid VALUES('jiajia11@outlook.com', 'OCBC Bank', 58000, '9
 *
 * Each investor can have ONE OR MORE goal
 *
-* For goals, let's first assume that users only can choose
-* from a set of goals provided (to avoid strings of the same meaning
-* but of different vaues because of cases e.g.)
+* For goals, let's first assume that users only can choose from a set of goals
+* provided (to avoid strings of the same meaning but of different vaues because
+* of cases e.g.)
+*
+*
+* Note: the number of portfolio doesn't necessarily correspond to number of
+* financial_goal, because it depends on whether the investor agrees to activate
+* the portfolio. Therefore, the counts don't have to match.
+*
+* Additionally, the inception_date of portfolio doesn't have to correspond with
+* financial_goal start_date, because investors don't have to agree to the
+* porfolio immediately when they make the goal 
+*
+*
 */
 CREATE TABLE financial_goal (
   phone_number varchar(20),
@@ -282,6 +290,8 @@ INSERT INTO risk_tolerance_phone VALUES('97543123', 0, 1, 1, 1, 0);
 * score of 4 to 5: conservative
 *
 * because we are only using 0 and 1, this captures all permutations
+*
+*
 */
 CREATE TABLE risk_tolerance_risklvl (
   risk_level varchar(15) NOT NULL CHECK (risk_level IN ('conservative', 'moderate', 'aggressive')),
@@ -611,43 +621,6 @@ CREATE TABLE unrealised_gain_loss (
 );
 
 
--- Yang Kai De 81067405
--- Alice Tan 81232345
--- Zhuo Si Wen 81241249
--- Blake Wood 81548849
--- Kara Chia 82340987
--- How Rui En 83248451
--- Shen Shu Qi 86093078
--- Goh Jun Cheng 86408389
--- Lam Zi Rui 86916680
--- Beh Kai De 86999698
--- Zhuo En Hui 87346813
--- Qin Xin En 88597986
--- Jacky Lau 89950123
--- Eva Chua 90123456
--- Megan Tay 90657890
--- Oscar Tan 91430257
--- Fiona Tan 92226789
--- Chen Kai Ming 92347678
--- Hong Kai Ming 92948260
--- Nina Koh 93086574
--- Bob Lim 93456789
--- Ho Jia Xin 93641335
--- Teng Yong Rui 94612498
--- Ian Cheong 94786234
--- Beh De Kang 94798210
--- Liew Zhi Xin 95067720
--- Du Kai Xin 95177723
--- Cindy Lee 95551234
--- Chia Jia Wen 95766485
--- George Ho 96547890
--- Clyaton Hammond 96827418
--- Paul Lim 97543123
--- Zeng Kai Hui 97858928
--- Lenny Tan 97861234
--- Hannah Goh 98324567
--- David Ong 98765432
-
 
 /**
 * Asset classes
@@ -755,9 +728,10 @@ INSERT INTO asset_others VALUES('LUMBER=F', 'Lumber Futures (Apr 2025)', 540.00)
 * the inception_date of the portfolio
 * 
 */
+
 CREATE TABLE stock_in_portfolio (
-  id int PRIMARY KEY,
-  pid int,
+  id int IDENTITY(1, 1) PRIMARY KEY,
+  pid int NOT NULL,
   start_date datetime NOT NULL,
   allocation_ratio decimal(4, 3) NOT NULL CHECK (allocation_ratio > 0 AND allocation_ratio < 1),
   post_trade_co varchar(255),
@@ -766,17 +740,81 @@ CREATE TABLE stock_in_portfolio (
   CONSTRAINT FK_stock_in_portfolio_TO_portfolio FOREIGN KEY (phone_number, pid) REFERENCES portfolio(phone_number, pid),
 );
 
-/**
-INSERT INTO stock_in_porfolio (id, pid, start_date, allocation_ratio, post_trade_co, phone_number, asset_id)
-SELECT 
-  p.inception_date AS start_date
-FROM 
+
+INSERT INTO stock_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'AAPL' AS asset_id,
+    'Vanguard' AS post_trade_co,
+    p.inception_date AS start_date,
+    0.5 AS allocation_ratio
+  FROM
   portfolio AS p
-WHERE
-  id = 1 AND pid = 1 AND phone_nubmer = p.phone_number AND incpetio
-**/
+  WHERE 
+  p.phone_number = '81067405' AND p.pid = 1 OR -- Yang Kai De
+  p.phone_number = '81232345' AND p.pid = 1 OR -- Alice Tan
+  p.phone_number = '81241249' AND p.pid = 1 OR -- Zhuo Si Wen
+  p.phone_number = '81548849' AND p.pid = 1 OR -- Blake Wood
+  p.phone_number = '82340987' AND p.pid = 1 OR -- Kara Chia
+  p.phone_number = '83248451' AND p.pid = 1 OR -- How Rui En
+  p.phone_number = '86093078' AND p.pid = 1 OR -- Shen Shu Qi
+  p.phone_number = '86408389' AND p.pid = 1 OR -- Goh Jun Cheng
+  p.phone_number = '86916680' AND p.pid = 1 OR -- Lam Zi Rui
+  p.phone_number = '86999698' AND p.pid = 1 OR -- Beh Kai De
+  p.phone_number = '87346813' AND p.pid = 1 OR -- Zhuo En Hui
+  p.phone_number = '88597986' AND p.pid = 1 OR -- Qin Xin En
+  p.phone_number = '89950123' AND p.pid = 1 OR -- Jacky Lau
+  p.phone_number = '90123456' AND p.pid = 1; -- Eva Chua
 
 
+
+INSERT INTO stock_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'AMZN' AS asset_id,
+    'SGX' AS post_trade_co,
+    p.inception_date AS start_date,
+    0.5 AS allocation_ratio
+  FROM
+  portfolio AS p
+  WHERE 
+  p.phone_number = '90657890' AND p.pid = 1 OR -- Megan Tay
+  p.phone_number = '91430257' AND p.pid = 1 OR -- Oscar Tan
+  p.phone_number = '92226789' AND p.pid = 1 OR -- Fiona Tan
+  p.phone_number = '92347678' AND p.pid = 1 OR -- Chen Kai Ming
+  p.phone_number = '92948260' AND p.pid = 1 OR -- Hong Kai Ming
+  p.phone_number = '93086574' AND p.pid = 1 OR -- Nina Koh
+  p.phone_number = '93456789' AND p.pid = 1 OR -- Bob Lim
+  p.phone_number = '93641335' AND p.pid = 1 OR -- Ho Jia Xin
+  p.phone_number = '94612498' AND p.pid = 1 OR -- Teng Yong Rui
+  p.phone_number = '94786234' AND p.pid = 1 OR -- Ian Cheong
+  p.phone_number = '94798210' AND p.pid = 1 OR -- Beh De Kang
+  p.phone_number = '95067720' AND p.pid = 1 OR -- Liew Zhi Xin
+  p.phone_number = '95177723' AND p.pid = 1; -- Du Kai Xin
+
+
+INSERT INTO stock_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'NVDA' AS asset_id,
+    'Moomoo' AS post_trade_co,
+    p.inception_date AS start_date,
+    0.5 AS allocation_ratio
+  FROM
+  portfolio AS p
+  WHERE 
+  p.phone_number = '95551234' AND p.pid = 1 OR -- Cindy Lee
+  p.phone_number = '95766485' AND p.pid = 1 OR -- Chia Jia Wen
+  p.phone_number = '96547890' AND p.pid = 1 OR -- George Ho
+  p.phone_number = '96827418' AND p.pid = 1 OR -- Clyaton Hammond
+  p.phone_number = '97543123' AND p.pid = 1 OR -- Paul Lim
+  p.phone_number = '97858928' AND p.pid = 1 OR -- Zeng Kai Hui
+  p.phone_number = '97861234' AND p.pid = 1 OR -- Lenny Tan
+  p.phone_number = '98324567' AND p.pid = 1 OR -- Hannah Goh
+  p.phone_number = '98765432' AND p.pid = 1; -- David Ong
 
 
 
@@ -819,7 +857,6 @@ CREATE TABLE transaction_stock (
   CONSTRAINT PK_transaction_stock PRIMARY KEY (occurred_on, id),
   CONSTRAINT FK_transaction_stock_TO_stock_in_portfolio FOREIGN KEY (id) REFERENCES stock_in_portfolio(id)
 );
-
 
 
 CREATE TABLE transaction_bond (
