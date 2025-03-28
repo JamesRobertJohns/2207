@@ -46,23 +46,23 @@ INSERT INTO investor_signup VALUES('92037456', 'Quincy Yeo', '1983-12-13', 'O');
 INSERT INTO investor_signup VALUES('83652019', 'Rita Lee', '1998-08-08', 'O');
 INSERT INTO investor_signup VALUES('95732804', 'Simon Ho', '1975-03-02', 'O');
 
-insert into bond_in_portfolio values('1', '1', '2024-01-01', '0.3', 'Euronext Securities', '81232345', '5EKJJ076Z7'); 
-insert into bond_in_portfolio values('2', '1', '2024-01-01', '0.3', 'Clearstream', '82340987', 'RRNJG6WB3R');
-insert into bond_in_portfolio values('3', '1', '2025-01-01', '0.3', 'Euronext Securities', '89950123', 'BAWJ7I0U0X');
-insert into bond_in_portfolio values('4', '1', '2024-01-01', '0.3', 'MarketAxess', '90123456', 'KD17D6ZP5O');
-insert into bond_in_portfolio values('5', '1', '2024-01-01', '0.3', 'Euronext Securities', '90657890', 'L91OBFWJFB');
-insert into bond_in_portfolio values('6', '1', '2024-01-01', '0.3', 'SIX Group', '91430257', 'G2M1S7LI4L');
-insert into bond_in_portfolio values('7', '1', '2024-01-01', '0.3', 'Euronext Securities', '92226789', '6E7UZBY4J0');
-insert into bond_in_portfolio values('8', '1', '2024-01-01', '0.3', 'MarketAxess', '93086574', 'KF3117AWHM');
+INSERT INTO bond_in_portfolio VALUES('1', '1', '2024-01-01', 0.3, 'Euronext Securities', '81232345', '5EKJJ076Z7'); 
+INSERT INTO bond_in_portfolio VALUES('2', '1', '2024-01-01', 0.3, 'Clearstream', '82340987', 'RRNJG6WB3R');
+INSERT INTO bond_in_portfolio VALUES('3', '1', '2025-01-01', 0.3, 'Euronext Securities', '89950123', 'BAWJ7I0U0X');
+INSERT INTO bond_in_portfolio VALUES('4', '1', '2024-01-01', 0.3, 'MarketAxess', '90123456', 'KD17D6ZP5O');
+INSERT INTO bond_in_portfolio VALUES('5', '1', '2024-01-01', 0.3, 'Euronext Securities', '90657890', 'L91OBFWJFB');
+INSERT INTO bond_in_portfolio VALUES('6', '1', '2024-01-01', 0.3, 'SIX Group', '91430257', 'G2M1S7LI4L');
+INSERT INTO bond_in_portfolio VALUES('7', '1', '2024-01-01', 0.3, 'Euronext Securities', '92226789', '6E7UZBY4J0');
+INSERT INTO bond_in_portfolio VALUES('8', '1', '2024-01-01', 0.3, 'MarketAxess', '93086574', 'KF3117AWHM');
 
-insert into bond_in_portfolio values('9', '1', NULL , '0.3', 'OSTTRA', '93456789', 'TP0DTWEBMN');
-insert into bond_in_portfolio values('10', '1', '2024-01-01' , '0.3', 'SIX Group', '94786234', 'FVL13D5L9E');
-insert into bond_in_portfolio values('11', '1', '2024-03-03' , '0.3', 'OSTTRA', '95551234', 'Z80USELMFE');
-insert into bond_in_portfolio values('12', '1', '2024-06-06' , '0.3', 'MarketAxess', '96547890', 'IUW7QH4VIU');
-insert into bond_in_portfolio values('13', '1', '2024-01-01' , '0.3', 'SIX Group', '97543123', '4MGIQJDAUS');
-insert into bond_in_portfolio values('14', '1', '2024-01-01' , '0.3', 'OSTTRA', '97861234', 'GKPF1UU6UZ');
-insert into bond_in_portfolio values('15', '1', '2024-01-01' , '0.3', 'OSTTRA', '98324567', 'HPS8UJRDOZ');
-insert into bond_in_portfolio values('16', '1', '2024-06-06' , '0.3', 'Clearstream', '98765432', 'RQBX12QKVU');
+INSERT INTO bond_in_portfolio VALUES('9', '1', NULL , 0.3, 'OSTTRA', '93456789', 'TP0DTWEBMN');
+INSERT INTO bond_in_portfolio VALUES('10', '1', '2024-01-01' , 0.3, 'SIX Group', '94786234', 'FVL13D5L9E');
+INSERT INTO bond_in_portfolio VALUES('11', '1', '2024-03-03' , 0.3, 'OSTTRA', '95551234', 'Z80USELMFE');
+INSERT INTO bond_in_portfolio VALUES('12', '1', '2024-06-06' , 0.3, 'MarketAxess', '96547890', 'IUW7QH4VIU');
+INSERT INTO bond_in_portfolio VALUES('13', '1', '2024-01-01' , 0.3, 'SIX Group', '97543123', '4MGIQJDAUS');
+INSERT INTO bond_in_portfolio VALUES('14', '1', '2024-01-01' , 0.3, 'OSTTRA', '97861234', 'GKPF1UU6UZ');
+INSERT INTO bond_in_portfolio VALUES('15', '1', '2024-01-01' , 0.3, 'OSTTRA', '98324567', 'HPS8UJRDOZ');
+INSERT INTO bond_in_portfolio VALUES('16', '1', '2024-06-06' , 0.3, 'Clearstream', '98765432', 'RQBX12QKVU');
 
 /**
 * Create table storing additional investor information
