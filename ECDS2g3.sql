@@ -383,7 +383,7 @@ VALUES ('81232345', 2, 10.12, '2023-03-01 09:13:34', 1050000, 0); -- non-operati
 
 -- For Q3 : the values are fixed so that they are consistent!
 INSERT INTO portfolio  (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
-VALUES ('81232345', 3, 5, '2024-01-01 00:00:00', 1050, 0); 
+VALUES ('81232345', 3, 5, '2024-01-01 00:00:00', 1050, 1); 
 
 -- Bob Lim
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
@@ -391,8 +391,6 @@ VALUES ('93456789', 1, 30.15, '2024-01-01 11:05:45', 1300000, 1);
 
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
 VALUES ('93456789', 2, 0.15, '2020-11-01 11:15:45', 10000, 0); -- non-operational
-
-
 
 -- Cindy Lee
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
@@ -406,12 +404,16 @@ VALUES ('95551234', 2, -3.05, '2020-03-12 16:33:19', 10000, 0); -- non-operation
 
 -- David Ong
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
-VALUES ('98765432', 1, 10.09, '2023-09-01 08:22:17', 1150000, 1);
+VALUES ('98765432', 1, 10.09, '2023-09-01 08:22:17', 1150000, 1); 
+
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('98765432', 2, -50.09, '2023-09-11 00:22:17', 1150000, 1);  -- To Test Q1, TODO: init 
 
 
 -- Eva Chua
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
 VALUES ('90123456', 1, 40.11, '2024-02-20 14:11:58', 1400000, 1);
+
 
 
 -- Fiona Tan
@@ -681,7 +683,8 @@ INSERT INTO unrealised_gain_loss VALUES ('2024-11-30 23:59:59', 3, '81232345', -
 INSERT INTO unrealised_gain_loss VALUES ('2024-12-01 23:59:59', 3, '81232345', 200);
 INSERT INTO unrealised_gain_loss VALUES ('2024-12-31 23:59:59', 3, '81232345', -975);
 
-
+-- test Q3
+INSERT INTO unrealised_gain_loss VALUES ('2024-01-11 23:59:59', 1, '81067405', -50);
 
 -- Create DateSeq so don't have to manually write it out
 -- however this is only if we want to do EVERY DATE which is impractical
@@ -806,7 +809,7 @@ CREATE TABLE stock_in_portfolio (
   id int IDENTITY(1, 1) PRIMARY KEY,
   pid int NOT NULL,
   start_date datetime NOT NULL,
-  allocation_ratio decimal(4, 3) NOT NULL CHECK (allocation_ratio > 0 AND allocation_ratio < 1),
+  allocation_ratio decimal(4, 3) NOT NULL CHECK (allocation_ratio > 0 AND allocation_ratio <= 1),
   post_trade_co varchar(255),
   phone_number varchar(20),
   asset_id varchar(20),
@@ -925,7 +928,7 @@ CREATE TABLE bond_in_portfolio (
   id int IDENTITY(1,1) PRIMARY KEY,
   pid int,
   start_date datetime NOT NULL,
-  allocation_ratio decimal(4, 3) NOT NULL CHECK (allocation_ratio > 0 AND allocation_ratio < 1),
+  allocation_ratio decimal(4, 3) NOT NULL CHECK (allocation_ratio > 0 AND allocation_ratio <= 1),
   post_trade_co varchar(255),
   phone_number varchar(20),
   asset_id varchar(20),
@@ -1040,12 +1043,27 @@ INSERT INTO bond_in_portfolio (phone_number, pid, asset_id, post_trade_co, start
   p.phone_number = '93456789' AND p.pid = 2; -- Bob Lim
 
 
+-- the following is for Q1, David Ong, 98765432
+
+INSERT INTO bond_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio)
+  SELECT
+    p.phone_number,
+    p.pid,
+    'SG31A8000003' AS asset_id,
+    'SGX' AS post_trade_co,
+    p.inception_date AS start_date,
+    1 AS allocation_ratio
+  From
+  portfolio AS p
+  WHERE 
+  p.phone_number = '98765432' AND p.pid = 2;
+
 
 CREATE TABLE fund_in_portfolio (
   id int IDENTITY(1,1) PRIMARY KEY,
   pid int NOT NULL,
   start_date datetime NOT NULL,
-  allocation_ratio decimal(4, 3) NOT NULL CHECK (allocation_ratio > 0 AND allocation_ratio < 1),
+  allocation_ratio decimal(4, 3) NOT NULL CHECK (allocation_ratio > 0 AND allocation_ratio <= 1),
   post_trade_co varchar(255),
   phone_number varchar(20),
   asset_id varchar(20),
@@ -1381,6 +1399,19 @@ WHERE
   s.phone_number = '95551234' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number; -- Cindy Lee
 
 
+-- the following is for Q1, David Ong, 98765432
+INSERT INTO transaction_bond (occurred_on, id,type, fee)
+SELECT
+    p.inception_date AS occurred_on,
+    s.id AS id,
+    'purchase' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '98765432' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number);
+
+
 
 
 CREATE TABLE transaction_fund (
@@ -1487,4 +1518,6 @@ WHERE
   s.phone_number = '81232345' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Alice Tan
   s.phone_number = '93456789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Bob Lim
   s.phone_number = '95551234' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number; -- Cindy Lee
+
+
 
