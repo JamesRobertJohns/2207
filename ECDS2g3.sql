@@ -407,28 +407,48 @@ INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, mar
 VALUES ('98765432', 1, 10.09, '2023-09-01 08:22:17', 1150000, 1); 
 
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
-VALUES ('98765432', 2, -50.09, '2023-09-11 00:22:17', 1150000, 1);  -- To Test Q1, TODO: init 
+VALUES ('98765432', 2, -50.09, '2023-09-11 00:22:17', 1150000, 1);  -- To Test Q1
 
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('98765432', 3, 19.09, '2023-09-12 10:22:17', 50000, 1); -- To Test Q2 (did not init unrealised and transactions)
+
+
+-- E, F, G chosen for Q5, pid = 2
+-- Set them to all holding stocks
+-- Set intial amount 0 for initialisation, for the purpose of answering the question
 
 -- Eva Chua
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
 VALUES ('90123456', 1, 40.11, '2024-02-20 14:11:58', 1400000, 1);
 
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('90123456', 2, 10, '2023-12-31 23:10:59', 132, 1); -- Q5, Eva Chua
 
 
 -- Fiona Tan
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
-VALUES ('92226789', 1, 20.05, '2023-08-01 17:09:04', 880000, 1);
+VALUES ('92226789', 1, 20.05, '2023-08-01 17:09:04', 880000, 1); 
+
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('92226789', 2, 10, '2023-12-30 17:09:04', 132, 1); -- Q5, Fiona Tan
 
 
 -- George Ho
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
 VALUES ('96547890', 1, 10.13, '2023-01-01 10:18:29', 990000, 1);
 
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('96547890', 2, 10, '2023-11-30 10:18:29', 132, 1);  -- Q5, George HO
 
+
+-- Set H as Oracle for Q5
 -- Hannah Goh
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
 VALUES ('98324567', 1, 15.10, '2023-03-03 13:41:36', 1020000, 1);
+
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('98324567', 2, 15.10, '2023-03-04 14:41:36', 20000, 1);
+
 
 
 -- Ian Cheong
@@ -923,6 +943,40 @@ INSERT INTO stock_in_portfolio (phone_number, pid, asset_id, post_trade_co, star
 
 
 
+-- For Q5 
+
+INSERT INTO stock_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'META' AS asset_id,
+    'Vanguard' AS post_trade_co,
+    p.inception_date AS start_date,
+    0.5 AS allocation_ratio
+  FROM
+  portfolio AS p
+  WHERE 
+  p.phone_number = '90123456' AND p.pid = 2 OR -- Eva Chua
+  p.phone_number = '92226789' AND p.pid = 2 OR -- Fiona Tan
+  p.phone_number = '96547890' AND p.pid = 2; -- George
+
+-- For Q5 oracle
+
+INSERT INTO stock_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'GOOGL' AS asset_id,
+    'Vanguard' AS post_trade_co,
+    p.inception_date AS start_date,
+    1 AS allocation_ratio
+  FROM
+  portfolio AS p
+  WHERE 
+  p.phone_number = '98324567' AND p.pid = 2; -- Oracle Hannah
+
+
+
 
 CREATE TABLE bond_in_portfolio (
   id int IDENTITY(1,1) PRIMARY KEY,
@@ -1059,6 +1113,26 @@ INSERT INTO bond_in_portfolio (phone_number, pid, asset_id, post_trade_co, start
   p.phone_number = '98765432' AND p.pid = 2;
 
 
+-- For Q5 
+
+INSERT INTO bond_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'SGXF51035222' AS asset_id,
+    'SGX' AS post_trade_co,
+    p.inception_date AS start_date,
+    0.3 AS allocation_ratio
+  FROM
+  portfolio AS p
+  WHERE 
+  p.phone_number = '90123456' AND p.pid = 2 OR -- Eva Chua
+  p.phone_number = '92226789' AND p.pid = 2 OR -- Fiona Tan
+  p.phone_number = '96547890' AND p.pid = 2; -- George
+
+
+
+
 CREATE TABLE fund_in_portfolio (
   id int IDENTITY(1,1) PRIMARY KEY,
   pid int NOT NULL,
@@ -1181,12 +1255,22 @@ INSERT INTO fund_in_portfolio (phone_number, pid, asset_id, post_trade_co, start
   p.phone_number = '93456789' AND p.pid = 2; -- Bob Lim
 
 
+INSERT INTO fund_in_portfolio (phone_number, pid, asset_id, post_trade_co, start_date, allocation_ratio) 
+  SELECT
+    p.phone_number,
+    p.pid,
+    'FXAIX' AS asset_id,
+    'Saxo' AS post_trade_co,
+    p.inception_date AS start_date,
+    0.3 AS allocation_ratio
+  FROM
+  portfolio AS p
+  WHERE 
+  p.phone_number = '90123456' AND p.pid = 2 OR -- Eva Chua
+  p.phone_number = '92226789' AND p.pid = 2 OR -- Fiona Tan
+  p.phone_number = '96547890' AND p.pid = 2; -- George
 
-/**
-* Transactions 
-*
-* To answer Q5 requires top up
-*/
+
 
 
 CREATE TABLE transaction_stock (
@@ -1293,6 +1377,184 @@ WHERE
   s.phone_number = '93456789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Bob Lim
   s.phone_number = '95551234' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number; -- Cindy Lee
 
+
+
+-- For Q5
+-- Initialise to hold 0.5 Bond, 0.3 Stock, 0.2 Stock 
+-- subsequently, add one entry for each month
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2023-12-31 23:59:59' AS occurred_on,
+    s.id AS id,
+    'purchase' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2024-01-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR  -- G 
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number);  -- Oracle
+  
+
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2024-02-02 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2024-03-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number)OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2024-04-03 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2024-05-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2024-06-03 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2024-07-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2024-08-02 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2024-09-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2024-10-03 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2024-11-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_stock (occurred_on, id, type, fee) 
+SELECT
+    '2024-12-02 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, stock_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number)OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
 
 
 
@@ -1412,6 +1674,182 @@ WHERE
   (s.phone_number = '98765432' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number);
 
 
+-- Q5
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2023-12-31 23:59:59' AS occurred_on,
+    s.id AS id,
+    'purchase' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2024-01-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G
+  
+
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2024-02-02 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2024-03-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number)OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2024-04-03 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2024-05-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2024-06-03 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2024-07-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2024-08-02 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2024-09-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2024-10-03 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2024-11-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_bond (occurred_on, id, type, fee) 
+SELECT
+    '2024-12-02 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, bond_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number)OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+
+
 
 
 CREATE TABLE transaction_fund (
@@ -1519,5 +1957,179 @@ WHERE
   s.phone_number = '93456789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number OR -- Bob Lim
   s.phone_number = '95551234' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number; -- Cindy Lee
 
+
+-- For Q5
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2023-12-31 23:59:59' AS occurred_on,
+    s.id AS id,
+    'purchase' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2024-01-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G
+  
+
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2024-02-02 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2024-03-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number)OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2024-04-03 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2024-05-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2024-06-03 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2024-07-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2024-08-02 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2024-09-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2024-10-03 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2024-11-01 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+INSERT INTO transaction_fund (occurred_on, id, type, fee) 
+SELECT
+    '2024-12-02 23:59:59' AS occurred_on,
+    s.id AS id,
+    'topup' AS type,
+    0 AS fee
+FROM
+  portfolio AS p, fund_in_portfolio AS s
+WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number)OR -- F 
+  (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
 
 
