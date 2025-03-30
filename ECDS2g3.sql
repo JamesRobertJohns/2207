@@ -424,6 +424,10 @@ VALUES ('90123456', 1, 40.11, '2024-02-20 14:11:58', 1400000, 1);
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
 VALUES ('90123456', 2, 10, '2023-12-31 23:10:59', 132, 1); -- Q5, Eva Chua
 
+INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
+VALUES ('90123456', 3, 10, '2023-12-31 23:12:59', 132, 1); -- Q5 test distinct
+
+
 
 -- Fiona Tan
 INSERT INTO portfolio (phone_number, pid, annualised_return, inception_date, market_value, operational_status)
@@ -641,7 +645,16 @@ WHERE
   p.phone_number = '97858928' AND p.pid = 1 OR -- Zeng Kai Hui
   p.phone_number = '97861234' AND p.pid = 1 OR -- Lenny Tan
   p.phone_number = '98324567' AND p.pid = 1 OR -- Hannah Goh
-  p.phone_number = '98765432' AND p.pid = 1   -- David Ong
+  p.phone_number = '98765432' AND p.pid = 1 OR -- David Ong
+  -- missing children
+  p.phone_number = '81232345' AND p.pid = 3 OR 
+  p.phone_number = '90123456' AND p.pid = 2 OR
+  p.phone_number = '90123456' AND p.pid = 3 OR
+  p.phone_number = '92226789' AND p.pid = 2 OR
+  p.phone_number = '96547890' AND p.pid = 2 OR
+  p.phone_number = '98324567' AND p.pid = 2 OR
+  p.phone_number = '98765432' AND p.pid = 2 OR
+  p.phone_number = '98765432' AND p.pid = 3
 ;
 
 
@@ -973,7 +986,8 @@ INSERT INTO stock_in_portfolio (phone_number, pid, asset_id, post_trade_co, star
   FROM
   portfolio AS p
   WHERE 
-  p.phone_number = '98324567' AND p.pid = 2; -- Oracle Hannah
+  (p.phone_number = '98324567' AND p.pid = 2) OR -- Oracle Hannah
+  (p.phone_number = '90123456' AND p.pid = 3); -- Test distinct 
 
 
 
@@ -1276,7 +1290,7 @@ INSERT INTO fund_in_portfolio (phone_number, pid, asset_id, post_trade_co, start
 CREATE TABLE transaction_stock (
   occurred_on datetime,
   id int, -- stock in portfolio id
-  type varchar(20) CHECK (type IN ('purchase', 'topup', 'withdrawal', 'management', 'rebalance')),
+  type varchar(20) CHECK (type IN ('purchase', 'topup', 'withdrawal', 'rebalance')),
   fee money,
   CONSTRAINT PK_transaction_stock PRIMARY KEY (occurred_on, id),
   CONSTRAINT FK_transaction_stock_TO_stock_in_portfolio FOREIGN KEY (id) REFERENCES stock_in_portfolio(id)
@@ -1393,6 +1407,7 @@ FROM
   portfolio AS p, stock_in_portfolio AS s
 WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- test distinct
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
 
@@ -1409,7 +1424,8 @@ WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR  -- G 
-  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number);  -- Oracle
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR  -- Oracle
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- Test Distinct
   
 
 
@@ -1423,8 +1439,11 @@ FROM
   portfolio AS p, stock_in_portfolio AS s
 WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- test distinct
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+
 
 INSERT INTO transaction_stock (occurred_on, id, type, fee) 
 SELECT
@@ -1436,6 +1455,7 @@ FROM
   portfolio AS p, stock_in_portfolio AS s
 WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- test distinct
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number)OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
 
@@ -1449,6 +1469,7 @@ FROM
   portfolio AS p, stock_in_portfolio AS s
 WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- test distinct
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
 
@@ -1462,6 +1483,7 @@ FROM
   portfolio AS p, stock_in_portfolio AS s
 WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- test distinct
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
 
@@ -1475,6 +1497,7 @@ FROM
   portfolio AS p, stock_in_portfolio AS s
 WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- test distinct
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
 
@@ -1487,6 +1510,8 @@ SELECT
 FROM
   portfolio AS p, stock_in_portfolio AS s
 WHERE
+  (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- test distinct
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
@@ -1501,6 +1526,7 @@ FROM
   portfolio AS p, stock_in_portfolio AS s
 WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- test distinct
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
 
@@ -1514,6 +1540,7 @@ FROM
   portfolio AS p, stock_in_portfolio AS s
 WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- test distinct
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
 
@@ -1527,6 +1554,7 @@ FROM
   portfolio AS p, stock_in_portfolio AS s
 WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- test distinct
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
 
@@ -1540,6 +1568,7 @@ FROM
   portfolio AS p, stock_in_portfolio AS s
 WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- test distinct
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number )OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
 
@@ -1553,6 +1582,7 @@ FROM
   portfolio AS p, stock_in_portfolio AS s
 WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
+  (s.phone_number = '90123456' AND s.pid = 3 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- test distinct
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number)OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
 
@@ -1561,7 +1591,7 @@ WHERE
 CREATE TABLE transaction_bond (
   occurred_on datetime,
   id int, -- bond in porfolio id
-  type varchar(20) CHECK (type IN ('purchase', 'topup', 'withdrawal', 'management', 'rebalance')),
+  type varchar(20) CHECK (type IN ('purchase', 'topup', 'withdrawal', 'rebalance')),
   fee money,
   CONSTRAINT PK_transaction_bond PRIMARY KEY (occurred_on, id),
   CONSTRAINT FK_transaction_bond_TO_bond_in_portfolio FOREIGN KEY (id) REFERENCES bond_in_portfolio(id)
@@ -1855,7 +1885,7 @@ WHERE
 CREATE TABLE transaction_fund (
   occurred_on datetime,
   id int, -- fund in portfolio id
-  type varchar(20) CHECK (type IN ('purchase', 'topup', 'withdrawal', 'management', 'rebalance')),
+  type varchar(20) CHECK (type IN ('purchase', 'topup', 'withdrawal', 'rebalance')),
   fee money,
   CONSTRAINT PK_transaction_fund PRIMARY KEY (occurred_on, id),
   CONSTRAINT FK_transaction_fund_TO_fund_in_portfolio FOREIGN KEY (id) REFERENCES fund_in_portfolio(id)
@@ -2131,5 +2161,27 @@ WHERE
   (s.phone_number = '90123456' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number) OR -- E
   (s.phone_number = '92226789' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number)OR -- F 
   (s.phone_number = '96547890' AND s.pid = 2 AND s.pid = p.pid AND p.phone_number = s.phone_number); -- G 
+
+
+-- Initialsing management fee <-- 0.0088 on invested value
+-- (1) need to update portfolio 
+
+UPDATE p
+SET p.management_fee = 0.0088 * iv.amount
+FROM portfolio AS p
+JOIN invested_value AS iv
+    ON iv.phone_number = p.phone_number
+    AND iv.pid = p.pid
+WHERE iv.phone_number IN (
+    '81067405', '81232345', '81241249', '81548849', '82340987', 
+    '83248451', '86093078', '86408389', '86916680', '86999698',
+    '87346813', '88597986', '89950123', '90123456', '90657890', 
+    '91430257', '92226789', '92347678', '92948260', '93086574', 
+    '93456789', '93641335', '94612498', '94786234', '94798210', 
+    '95067720', '95177723', '95551234', '95766485', '96547890', 
+    '96827418', '97543123', '97858928', '97861234', '98324567', 
+    '98765432'
+);
+
 
 
